@@ -12,6 +12,9 @@ function NavTabs() {
         <li className="nav-item">
           <Link to="/learn">Learn</Link>
         </li>
+        <li className="nav-item">
+          <Link to="/quizzes">Quizzes</Link>
+        </li>
       </ul>
     </div>
   );
