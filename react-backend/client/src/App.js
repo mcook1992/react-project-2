@@ -1,13 +1,14 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import "./App.css";
-import Login from "./pages/signUp";
+import SignUp from "./pages/signUp";
 import Learn from "./pages/learn";
 import NavTabs from "./navTabs";
 import Quizzes from "./pages/Quizzes";
+import Login from "./pages/Login";
 
 class App extends Component {
-  state = { users: [] };
+  state = { username: "TestUser3" };
 
   // componentDidMount() {
   //   fetch("/users")
@@ -21,9 +22,10 @@ class App extends Component {
         <Router>
           <div>
             <NavTabs />
-            <Route exact path="/" component={Login} />
+            <Route exact path="/" component={SignUp} />
             <Route exact path="/learn" component={Learn} />
-            <Route exact path="/quizzes" component={Quizzes} />
+            <Route exact path="/quizzes/:name" component={Quizzes} />
+            <Route exact path="/loginForm" component={Login} />
             {/* <Route exact path="/blog" component={Blog} />
             <Route path="/contact" component={Contact} /> */}
           </div>

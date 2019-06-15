@@ -4,11 +4,11 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 var userSchema = new Schema({
-  username: String
-  // password: String,
-  // dateCreated: { type: Date, default: Date.now() },
-  // accountType: String,
-  // modulesCompleted: []
+  username: String,
+  password: String,
+  dateCreated: { type: Date, default: Date.now() },
+  accountType: String,
+  modulesCompleted: []
 });
 
 // Compile model from schema

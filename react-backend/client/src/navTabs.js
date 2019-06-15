@@ -13,7 +13,10 @@ function NavTabs() {
           <Link to="/learn">Learn</Link>
         </li>
         <li className="nav-item">
-          <Link to="/quizzes">Quizzes</Link>
+          <Link to="/quizzes/:name">Quizzes</Link>
+        </li>
+        <li className="nav-item">
+          <Link to="/loginForm">LogIn</Link>
         </li>
       </ul>
     </div>

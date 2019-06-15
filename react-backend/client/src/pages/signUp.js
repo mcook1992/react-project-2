@@ -1,16 +1,18 @@
 import React from "react";
 
-class Login extends React.Component {
+class SignUp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       username: "",
-      password: ""
+      password: "",
+      accountType: "none"
     };
 
     this.handleUsernameChange = this.handleUsernameChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleAccountTypeChange = this.handleAccountTypeChange.bind(this);
   }
 
   handleUsernameChange(event) {
@@ -19,6 +21,9 @@ class Login extends React.Component {
 
   handlePasswordChange(event) {
     this.setState({ password: event.target.value });
+  }
+  handleAccountTypeChange(event) {
+    this.setState({ accountType: event.target.value });
   }
 
   handleSubmit(event) {
@@ -36,7 +41,11 @@ class Login extends React.Component {
         Accept: "application/json",
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({ username: this.state.username })
+      body: JSON.stringify({
+        username: this.state.username,
+        password: this.state.password,
+        accountType: this.state.accountType
+      })
     })
       .then(res => res.json())
       .then(data => console.log(data));
@@ -59,8 +68,16 @@ class Login extends React.Component {
             Password:
             <input
               type="text"
-              name="name"
+              name="password"
               onChange={this.handlePasswordChange}
+            />
+          </label>
+          <label>
+            Account Type
+            <input
+              type="text"
+              name="accountType"
+              onChange={this.handleAccountTypeChange}
             />
           </label>
           <input type="submit" value="Submit" />
@@ -70,4 +87,4 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+export default SignUp;
