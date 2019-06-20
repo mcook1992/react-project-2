@@ -8,7 +8,8 @@ var userSchema = new Schema({
   password: String,
   dateCreated: { type: Date, default: Date.now() },
   accountType: String,
-  modulesCompleted: []
+  modulesCompleted: [],
+  classNames: []
 });
 
 // Compile model from schema

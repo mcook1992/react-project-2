@@ -6,6 +6,7 @@ import Learn from "./pages/learn";
 import NavTabs from "./navTabs";
 import Quizzes from "./pages/Quizzes";
 import Login from "./pages/Login";
+import TestPage from "./pages/protectedPage";
 
 class App extends Component {
   state = { username: "TestUser3" };

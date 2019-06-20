@@ -41,3 +41,7 @@ router.post("/login", passport.authenticate("local"), function(req, res, next) {
     authenticated: true
   });
 });
+
+router.post("/quizzes/:name", function(req, res, next) {
+  console.log("Registering Quiz Data");
+});
