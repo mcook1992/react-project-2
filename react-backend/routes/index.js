@@ -1,6 +1,7 @@
 var express = require("express");
 var router = express.Router();
 var User = require("../models/users");
+var QuizAnswers = require("../models/surveyResults");
 var passport = require("../configure/passportConfig");
 /* GET home page. */
 router.get("/", function(req, res, next) {
@@ -31,7 +32,6 @@ router.post("/", function(req, res, next) {
     if (!err) console.log("Success");
   });
 });
-module.exports = router;
 
 router.post("/login", passport.authenticate("local"), function(req, res, next) {
   console.log("We're calling the login route!");
@@ -42,6 +42,21 @@ router.post("/login", passport.authenticate("local"), function(req, res, next) {
   });
 });
 
-router.post("/quizzes/:name", function(req, res, next) {
+router.post("/quizzes/:quizID/:name", function(req, res, next) {
   console.log("Registering Quiz Data");
+  console.log(req.body);
+
+  var newAnswers = new QuizAnswers({
+    quizID: req.body.id,
+    studentID: req.body.username,
+    quizQuestions: req.body.array
+  });
+  newAnswers.save(function(err) {
+    if (!err) console.log("Success");
+    res.json({
+      testvalue: "saved!"
+    });
+  });
 });
+
+module.exports = router;

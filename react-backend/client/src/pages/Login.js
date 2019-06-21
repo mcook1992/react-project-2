@@ -45,8 +45,8 @@ class LogIn extends React.Component {
     })
       .then(res => res.json())
       .then(data => {
-        console.log(data);
-        this.setState({ isAuthenticated: true });
+        console.log(data.authenticated);
+        this.setState({ isAuthenticated: data.authenticated });
       });
     //  .catch(err => console.log(err);
   }

@@ -5,8 +5,10 @@ var Schema = mongoose.Schema;
 var quizSchema = new Schema({
   quizID: String,
   studentID: String,
-  questionAnswers: [],
+  quizQuestions: [],
   dateSubmitted: { type: Date, default: Date.now() }
 });
 
-module.exports = quizSchema;
+var QuizAnswers = mongoose.model("QuizAnswers", quizSchema);
+
+module.exports = QuizAnswers;
