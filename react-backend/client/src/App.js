@@ -6,7 +6,8 @@ import Learn from "./pages/learn";
 import NavTabs from "./navTabs";
 import Quizzes from "./pages/Quizzes";
 import Login from "./pages/Login";
-import TestPage from "./pages/protectedPage";
+import Profile from "./pages/profile";
+import MentalHealthIntro from "./modules/mental_health_intro_part_1";
 
 class App extends Component {
   state = { username: "TestUser3" };
@@ -27,6 +28,9 @@ class App extends Component {
             <Route exact path="/learn" component={Learn} />
             <Route exact path="/quizzes/:name" component={Quizzes} />
             <Route exact path="/loginForm" component={Login} />
+            <Route exact path="/Profile" component={Profile} />
+            <Route exact path="/learn/module1" component={MentalHealthIntro} />
+
             {/* <Route exact path="/blog" component={Blog} />
             <Route path="/contact" component={Contact} /> */}
           </div>

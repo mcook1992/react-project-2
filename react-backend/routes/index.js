@@ -59,4 +59,60 @@ router.post("/quizzes/:quizID/:name", function(req, res, next) {
   });
 });
 
+router.get("/profile", function(req, res, next) {
+  console.log("registering profile request");
+  console.log(req.session);
+
+  if (req.session.passport) {
+    console.log("user logged in!");
+    console.log(req.session.passport.user.username);
+    QuizAnswers.find(
+      {
+        studentID: req.session.passport.user.username
+      },
+      function(err, data) {
+        // console.log(data);
+
+        User.findOne({ username: req.session.passport.user.username }, function(
+          err,
+          user
+        ) {
+          console.log(user.modulesCompleted);
+          res.json({
+            username: req.session.passport.user.username,
+            data: data,
+            modules: user.modulesCompleted
+          });
+        });
+      }
+    );
+  } else {
+    console.log("No user logged in");
+    res.json({
+      username: "User is not logged in"
+    });
+  }
+});
+
+router.post("/learn/updateModulesCompleted", function(req, res, next) {
+  console.log("registering this quiz request");
+  console.log(req.body.module);
+  if (req.session.passport) {
+    User.findOne({ username: req.session.passport.user.username }, function(
+      err,
+      data
+    ) {
+      data.modulesCompleted.push(req.body.module);
+      data.save(function(err) {
+        if (!err) {
+          console.log("successfully added module!");
+          res.json({
+            complete: "Completed!"
+          });
+        }
+      });
+    });
+  }
+});
+
 module.exports = router;

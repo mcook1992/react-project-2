@@ -1,4 +1,7 @@
 import React from "react";
+import ModuleNav from "../ModuleNav";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import MentalHealthIntro from "../modules/mental_health_intro_part_1";
 
 class Quizzes extends React.Component {
   constructor(props) {
@@ -82,14 +85,59 @@ class Quizzes extends React.Component {
             ))}
             <input type="submit" value="Submit" />
           </form>
+
+          <ModuleNav />
+          {/* <Router>
+            <div>
+              <ModuleNav />
+              <Route
+                exact
+                path="/learn/module1"
+                component={MentalHealthIntro}
+              />
+              <Route
+                exact
+                path="/learn/module2"
+                component={MentalHealthIntro}
+              />
+              <Route
+                exact
+                path="/learn/module3"
+                component={MentalHealthIntro}
+              />
+            </div>
+          </Router> */}
         </div>
       );
     } else {
       return (
-        <h2>
-          Thanks for submitting this quiz. Feel free to complete one of the
-          quizzes on the side
-        </h2>
+        <div>
+          <h2>
+            Thanks for submitting this quiz. Feel free to complete one of the
+            quizzes on the side
+          </h2>
+
+          <Router>
+            <div>
+              <moduleNav />
+              <Route
+                exact
+                path="/learn/module1"
+                component={MentalHealthIntro}
+              />
+              <Route
+                exact
+                path="/learn/module2"
+                component={MentalHealthIntro}
+              />
+              <Route
+                exact
+                path="/learn/module3"
+                component={MentalHealthIntro}
+              />
+            </div>
+          </Router>
+        </div>
       );
     }
   }
