@@ -12,8 +12,9 @@ passport.use(
       if (!user) {
         return done(null, false, { message: "Incorrect username." });
       }
+
       console.log(user.password);
-      console.log(password);
+
       //   if (user.password == password) {
       //     return done(null, false, { message: "Incorrect password." });
       //   }

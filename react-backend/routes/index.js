@@ -29,7 +29,15 @@ router.post("/", function(req, res, next) {
     accountType: req.body.accountType
   });
   newUser.save(function(err) {
-    if (!err) console.log("Success");
+    if (!err) {
+      req.logIn(newUser, function(err) {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log("successfully logged in new user");
+        }
+      });
+    }
   });
 });
 
