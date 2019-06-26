@@ -1,4 +1,5 @@
 import React from "react";
+import { Redirect } from "react-router";
 
 class SignUp extends React.Component {
   constructor(props) {
@@ -6,7 +7,8 @@ class SignUp extends React.Component {
     this.state = {
       username: "",
       password: "",
-      accountType: "none"
+      accountType: "none",
+      isAuthenticated: false
     };
 
     this.handleUsernameChange = this.handleUsernameChange.bind(this);
@@ -48,42 +50,54 @@ class SignUp extends React.Component {
       })
     })
       .then(res => res.json())
-      .then(data => console.log(data));
-    //  .catch(err => console.log(err);
+      .then(data => {
+        console.log(data);
+        this.setState({ isAuthenticated: data.authenticated });
+      });
   }
 
   render() {
-    return (
-      <div>
-        <form onSubmit={this.handleSubmit}>
-          <label>
-            Username:
-            <input
-              type="text"
-              name="username"
-              onChange={this.handleUsernameChange}
-            />
-          </label>
-          <label>
-            Password:
-            <input
-              type="text"
-              name="password"
-              onChange={this.handlePasswordChange}
-            />
-          </label>
-          <label>
-            Account Type
-            <input
-              type="text"
-              name="accountType"
-              onChange={this.handleAccountTypeChange}
-            />
-          </label>
-          <input type="submit" value="Submit" />
-        </form>
-      </div>
-    );
+    if (this.state.isAuthenticated === false) {
+      return (
+        <div>
+          <form onSubmit={this.handleSubmit}>
+            <label>
+              Username:
+              <input
+                type="text"
+                name="username"
+                onChange={this.handleUsernameChange}
+              />
+            </label>
+            <label>
+              Password:
+              <input
+                type="text"
+                name="password"
+                onChange={this.handlePasswordChange}
+              />
+            </label>
+            <label>
+              Account Type
+              <input
+                type="text"
+                name="accountType"
+                onChange={this.handleAccountTypeChange}
+              />
+            </label>
+            <input type="submit" value="Submit" />
+          </form>
+        </div>
+      );
+    } else {
+      return (
+        <Redirect
+          to={{
+            pathname: "/quizzes/" + this.state.username
+          }}
+        />
+      );
+    }
   }
 }
 

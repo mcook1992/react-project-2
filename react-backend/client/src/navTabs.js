@@ -21,6 +21,9 @@ function NavTabs() {
         <li className="nav-item">
           <Link to="/profile">Profile</Link>
         </li>
+        <li className="nav-item">
+          <Link to="/Classes">Classes</Link>
+        </li>
       </ul>
     </div>
   );

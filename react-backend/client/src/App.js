@@ -8,6 +8,7 @@ import Quizzes from "./pages/Quizzes";
 import Login from "./pages/Login";
 import Profile from "./pages/profile";
 import MentalHealthIntro from "./modules/mental_health_intro_part_1";
+import ClassPage from "./pages/classesPage";
 
 class App extends Component {
   state = { username: "TestUser3" };
@@ -29,6 +30,7 @@ class App extends Component {
             <Route exact path="/quizzes/:name" component={Quizzes} />
             <Route exact path="/loginForm" component={Login} />
             <Route exact path="/Profile" component={Profile} />
+            <Route exact path="/Classes" component={ClassPage} />
             <Route exact path="/learn/module1" component={MentalHealthIntro} />
 
             {/* <Route exact path="/blog" component={Blog} />

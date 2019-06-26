@@ -3,6 +3,7 @@ var router = express.Router();
 var User = require("../models/users");
 var QuizAnswers = require("../models/surveyResults");
 var passport = require("../configure/passportConfig");
+var Group = require("../models/classes");
 /* GET home page. */
 router.get("/", function(req, res, next) {
   res.render("index", { title: "Express" });
@@ -18,10 +19,6 @@ router.get("/success", function(req, res, next) {
 
 router.post("/", function(req, res, next) {
   console.log(req.body);
-  res.json({
-    id: 1,
-    username: req.body
-  });
 
   var newUser = new User({
     username: req.body.username,
@@ -35,6 +32,11 @@ router.post("/", function(req, res, next) {
           console.log(err);
         } else {
           console.log("successfully logged in new user");
+          res.json({
+            id: 1,
+            username: req.body,
+            authenticated: true
+          });
         }
       });
     }
@@ -119,6 +121,89 @@ router.post("/learn/updateModulesCompleted", function(req, res, next) {
           });
         }
       });
+    });
+  }
+});
+
+router.get("/addClasses", function(req, res, next) {
+  console.log("Register the add classes request");
+  if (req.session.passport) {
+    User.findOne({ username: req.session.passport.user.username }, function(
+      err,
+      data
+    ) {
+      if (!err) {
+        console.log("Successfully got a user for the add classes page");
+        res.json({
+          currentClasses: data.classNames,
+          accountType: data.accountType
+        });
+      }
+    });
+  }
+});
+
+router.post("/addClasses", function(req, res, next) {
+  console.log("Register the add classes post request");
+  if (req.session.passport) {
+    Group.findOne({ name: req.body.newClassName }, function(err, data) {
+      if (data) {
+        console.log("this group does exist already");
+      } else {
+        console.log("this group does not exist yet.");
+
+        var newGroup = new Group({
+          name: req.body.newClassName,
+          teacherNames: [req.session.passport.user.username]
+        });
+        newGroup.save(function(err) {
+          if (!err) {
+            console.log("New group created successfully");
+
+            //adding a teacher to the class
+          }
+        });
+      }
+    });
+
+    User.findOne({ username: req.session.passport.user.username }, function(
+      err,
+      data
+    ) {
+      if (!err) {
+        data.classNames.push(req.body.newClassName);
+        data.save(function(err) {
+          if (!err) {
+            console.log("Successfully added a class");
+            res.json({
+              classNames: data.classNames
+            });
+          }
+        });
+      }
+    });
+  }
+});
+
+router.post("/joinClasses", function(req, res, next) {
+  console.log("registering the join classes request");
+  if (req.session.passport) {
+    // console.log("User is logged in");
+    console.log(req.body.newClassName);
+    Group.findOne({ name: req.body.newClassName }, function(err, data) {
+      if (data) {
+        console.log("this group does exist already");
+        data.studentNames.push(req.session.passport.user.username);
+        data.save(function(err) {
+          if (!err) {
+            res.json({
+              newClass: req.body.newClassName
+            });
+          }
+        });
+      } else {
+        console.log("this group does not exist yet.");
+      }
     });
   }
 });
