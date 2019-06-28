@@ -7,7 +7,10 @@ class LogIn extends React.Component {
     this.state = {
       username: "",
       password: "",
-      isAuthenticated: false
+      isAuthenticated: false,
+      logIn: true,
+      signUp: false,
+      signOut: false
     };
 
     this.handleUsernameChange = this.handleUsernameChange.bind(this);
@@ -76,13 +79,15 @@ class LogIn extends React.Component {
             <label>
               Password:
               <input
-                type="text"
+                type="password"
                 name="password"
                 onChange={this.handlePasswordChange}
               />
             </label>
             <input type="submit" value="Submit" />
           </form>
+
+          {/* <button>Sign Up</button> */}
         </div>
       );
     }

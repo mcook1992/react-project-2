@@ -107,6 +107,12 @@ class Quizzes extends React.Component {
               />
             </div>
           </Router> */}
+          <button
+            className="signOut text-right"
+            onClick={() => fetch("/signOut")}
+          >
+            Sign Out
+          </button>
         </div>
       );
     } else {
@@ -137,6 +143,12 @@ class Quizzes extends React.Component {
               />
             </div>
           </Router>
+          <button
+            className="signOut text-right"
+            onClick={() => fetch("/signOut")}
+          >
+            Sign Out
+          </button>
         </div>
       );
     }
