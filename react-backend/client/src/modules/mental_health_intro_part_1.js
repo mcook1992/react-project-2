@@ -63,7 +63,25 @@ class MentalHealthIntro extends React.Component {
         </form>
 
         <div id="part2" className="part2 hidden">
-          <h3>This is part 2</h3>
+          <p>
+            Thanks for sharing your thoughts. The truth is, there is no one
+            definition of mental health. Generally, mental health refers to your
+            emotional and social well-being. People who are mentally healthy
+            can:
+            <ul>
+              <li>
+                can deal with the everyday stresses of life in a healthy way
+              </li>
+              <li>can work productively toward their goals</li>
+            </ul>
+            Why is this important? Taking care of our mental health can make us
+            better students, athletes, and performers. It helps us work faster,
+            practice harder, and learn more effectively. It also helps us have
+            better relationships with our family and friends.
+            <li>
+              Why do you think it's important to take care of mental health?
+            </li>
+          </p>
 
           <form
             id="secondInput"
@@ -76,14 +94,39 @@ class MentalHealthIntro extends React.Component {
         </div>
 
         <div id="part3" className="part3 hidden">
-          <h3> This is part 3</h3>
+          <p>
+            Just like there are things we can do to improve our physical health,
+            there are also things we can do to improve our mental health. Some
+            examples include:
+            <ul>
+              <li>Sleeping</li>
+              <li>Meditating</li>
+              <li>Talking with friends and family</li>
+              <li>Exercise</li>
+              <li>And many more</li>
+            </ul>
+            In these lessons, we'll explore some of hte many ways we can improve
+            our mental health. Just like we can sometimes have physical health
+            challenges--like a cold or an injury--we can also have mental health
+            challenges. Some common mental health challenges include:
+            <ul>
+              <li>(Too much) stress</li>
+              <li>Anxiety</li>
+              <li>Depression</li>
+              <li>Trouble Focusing</li>
+            </ul>
+            In these lessons, we'll learn more about these challenges and how we
+            can best deal with them. The good news is, no matter what challenge
+            you might be struggling with, you have the power to improve your
+            health and wellbeing.
+          </p>
 
           <form
             id="thirdInput"
             className={this.state.part3Class}
             onSubmit={this.handleSubmit3}
           >
-            <input type="text" />
+            <input type="textarea" />
             <input type="submit" value="Submit Part 3" />
           </form>
         </div>
