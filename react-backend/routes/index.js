@@ -13,6 +13,11 @@ router.get("/failed", function(req, res, next) {
   console.log("failed login");
 });
 
+router.get("/logOut", function(req, res, next) {
+  console.log("Logging out");
+  req.logOut();
+});
+
 router.get("/success", function(req, res, next) {
   console.log("successful login");
 });
