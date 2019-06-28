@@ -1,17 +1,25 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 class ClassPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       accountType: "",
-      currentClasses: []
+      currentClasses: [],
+      classClicked: false,
+      classArray: { name: "", array: [] }
     };
 
     this.addClass = this.addClass.bind(this);
     this.joinClass = this.joinClass.bind(this);
 
     //bind functions here
+  }
+
+  viewClass(event, groupName) {
+    event.preventDefault();
+    console.log(groupName);
   }
 
   addClass(event) {
@@ -84,7 +92,9 @@ class ClassPage extends React.Component {
           <button onClick={this.addClass}>Add Class</button>
           <h2>Your classes</h2>
           {this.state.currentClasses.map((item, i) => (
-            <li>{item}</li>
+            <li>
+              <Link to={"/classes/" + item}>{item}</Link>
+            </li>
           ))}
         </div>
       );

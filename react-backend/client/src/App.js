@@ -9,6 +9,8 @@ import Login from "./pages/Login";
 import Profile from "./pages/profile";
 import MentalHealthIntro from "./modules/mental_health_intro_part_1";
 import ClassPage from "./pages/classesPage";
+import singleClassPage from "./pages/singleClassPage";
+import studentProfilePage from "./pages/studentProfile";
 
 class App extends Component {
   state = { username: "TestUser3" };
@@ -32,6 +34,12 @@ class App extends Component {
             <Route exact path="/Profile" component={Profile} />
             <Route exact path="/Classes" component={ClassPage} />
             <Route exact path="/learn/module1" component={MentalHealthIntro} />
+            <Route exact path="/classes/:name" component={singleClassPage} />
+            <Route
+              exact
+              path="/studentProfile/:name"
+              component={studentProfilePage}
+            />
 
             {/* <Route exact path="/blog" component={Blog} />
             <Route path="/contact" component={Contact} /> */}

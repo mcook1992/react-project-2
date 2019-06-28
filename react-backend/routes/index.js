@@ -208,4 +208,42 @@ router.post("/joinClasses", function(req, res, next) {
   }
 });
 
+router.get("/displayClass/:classname", function(req, res, next) {
+  console.log("registering display things");
+  Group.findOne({ name: req.params.classname }, function(err, data) {
+    if (data) {
+      if (req.session.passport.user.username == data.teacherNames[0]) {
+        res.json({
+          studentNameArray: data.studentNames
+        });
+      }
+    } else {
+      console.log("We couldn't find the class");
+    }
+  });
+});
+
+router.get("/studentProfiles/:name", function(req, res, next) {
+  //add security
+  console.log(
+    "registering that we are getting the request to show student info"
+  );
+  QuizAnswers.find(
+    {
+      studentID: req.params.name
+    },
+    function(err, data) {
+      // console.log(data);
+
+      User.findOne({ username: req.params.name }, function(err, user) {
+        console.log(user.modulesCompleted);
+        res.json({
+          data: data,
+          modules: user.modulesCompleted
+        });
+      });
+    }
+  );
+});
+
 module.exports = router;
