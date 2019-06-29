@@ -79,11 +79,14 @@ class SignUp extends React.Component {
             </label>
             <label>
               Account Type
-              <input
-                type="text"
-                name="accountType"
+              <select
+                className="form-control quizSelect"
                 onChange={this.handleAccountTypeChange}
-              />
+              >
+                <option value="Teacher">I am a teacher</option>
+                <option value="Student">I am a student</option>
+                <option value="Parent">I am a parent</option>
+              </select>
             </label>
             <input type="submit" value="Submit" />
           </form>

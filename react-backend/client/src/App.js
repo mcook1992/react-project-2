@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import "./App.css";
-
+import SignOutButton from "./components/signOutButton";
 import Learn from "./pages/learn";
 import NavTabs from "./navTabs";
 import Quizzes from "./pages/Quizzes";
@@ -14,7 +14,23 @@ import studentProfilePage from "./pages/studentProfile";
 import landingPage from "./pages/landingPage";
 
 class App extends Component {
-  state = { username: "TestUser3" };
+  state = {
+    isAuthenticated: false,
+    signOutbuttonClass: "hidden"
+  };
+
+  // componentDidMount() {
+  //   fetch("/isAuthenticated")
+  //     .then(res => res.json())
+  //     .then(data => {
+  //       console.log(data);
+  //       if (data.isAuthenticated === true) {
+  //         this.setState({ signOutbuttonClass: "" });
+  //       } else {
+  //         this.setState({ signOutbuttonClass: "hidden" });
+  //       }
+  //     });
+  // }
 
   // componentDidMount() {
   //   fetch("/users")
@@ -46,6 +62,7 @@ class App extends Component {
             <Route path="/contact" component={Contact} /> */}
           </div>
         </Router>
+        {/* <SignOutButton className={this.state.signOutbuttonClass} /> */}
 
         {/* /* <h1>Users</h1>
         {this.state.users.map(user => (

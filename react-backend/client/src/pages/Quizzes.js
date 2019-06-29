@@ -2,6 +2,7 @@ import React from "react";
 import ModuleNav from "../ModuleNav";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import MentalHealthIntro from "../modules/mental_health_intro_part_1";
+import SignOutButton from "../components/signOutButton";
 
 class Quizzes extends React.Component {
   constructor(props) {
@@ -11,7 +12,7 @@ class Quizzes extends React.Component {
       username: this.props.location.pathname.replace("/quizzes/", ""),
       // currentText: "",
       questionArray: [
-        { label: "how stressed are you?", value: "", key: 1 },
+        { label: "How stressed do you currently feel?", value: "", key: 1 },
         {
           label: "Do you feel like you have someone you can talk to?",
           value: "",
@@ -69,13 +70,25 @@ class Quizzes extends React.Component {
     if (this.state.isComplete == false) {
       return (
         <div>
+          <SignOutButton className="btn btn-link pull-right" />
+          <ModuleNav />
           <h1>Welcome {this.state.username}</h1>
+          <h5 className="subheading">
+            <i>
+              Pleae answer a few quick questions below. Then get started by
+              clicking a lesson on the left.
+            </i>
+          </h5>
 
-          <form onSubmit={this.handleSubmit}>
+          <form className="form-group" onSubmit={this.handleSubmit}>
             {this.state.questionArray.map((item, i) => (
               <div>
                 <p>{item.label}</p>
-                <select accessKey={i} onChange={this.change}>
+                <select
+                  className="form-control quizSelect"
+                  accessKey={i}
+                  onChange={this.change}
+                >
                   <option value="1">1</option>
                   <option value="2">2</option>
                   <option value="3">3</option>
@@ -83,10 +96,13 @@ class Quizzes extends React.Component {
                 </select>
               </div>
             ))}
-            <input type="submit" value="Submit" />
+            <input
+              className="submit btn btn-primary"
+              type="submit"
+              value="Submit"
+            />
           </form>
 
-          <ModuleNav />
           {/* <Router>
             <div>
               <ModuleNav />
@@ -107,17 +123,13 @@ class Quizzes extends React.Component {
               />
             </div>
           </Router> */}
-          <button
-            className="signOut text-right"
-            onClick={() => fetch("/signOut")}
-          >
-            Sign Out
-          </button>
         </div>
       );
     } else {
       return (
         <div>
+          <SignOutButton className="btn btn-link pull-right" />
+          <ModuleNav />
           <h2>
             Thanks for submitting this quiz. Feel free to complete one of the
             quizzes on the side
@@ -143,12 +155,6 @@ class Quizzes extends React.Component {
               />
             </div>
           </Router>
-          <button
-            className="signOut text-right"
-            onClick={() => fetch("/signOut")}
-          >
-            Sign Out
-          </button>
         </div>
       );
     }

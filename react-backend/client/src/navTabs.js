@@ -6,9 +6,6 @@ function NavTabs() {
     <div>
       <ul className="nav nav-tabs">
         <li className="nav-item">
-          <Link to="/">Welcome</Link>
-        </li>
-        <li className="nav-item">
           <Link to="/">Home</Link>
         </li>
 

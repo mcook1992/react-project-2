@@ -31,3 +31,42 @@
     transform: rotate(360deg);
   }
 }
+
+/* dealing with main page */
+
+.quizSelect {
+  max-width: 200px;
+  text-align: center;
+  margin: auto;
+}
+
+.submit {
+  margin-top: 20px;
+}
+
+.subheading {
+  margin-bottom: 40px;
+}
+
+.signOut {
+  margin-top: 5px;
+  padding: 3px;
+}
+
+.moduleText {
+  width: 50%;
+  margin: auto;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.btn {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+img {
+  margin: auto;
+  margin-bottom: 20px;
+  display: block;
+}

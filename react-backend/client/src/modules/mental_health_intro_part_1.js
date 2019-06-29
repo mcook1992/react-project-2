@@ -48,9 +48,9 @@ class MentalHealthIntro extends React.Component {
   render() {
     return (
       <div>
-        <h2>This is the mental health module page</h2>
+        <h2>Introduction to Mental Health</h2>
 
-        <p>
+        <p className="moduleText">
           What do celebrities like Beyonce, Michael Phelps, and the Rock have in
           common? They've all worked incredibly hard, they've all reached the
           top of their field AND...they've all talked about the importance of
@@ -59,28 +59,36 @@ class MentalHealthIntro extends React.Component {
         </p>
         <form className={this.state.part1Class} onSubmit={this.handleSubmit1}>
           <input type="text" />
-          <input id="firstInput" type="submit" value="Submit Part 1" />
+          <input
+            className="btn btn-primary"
+            id="firstInput"
+            type="submit"
+            value="Submit Part 1"
+          />
         </form>
 
         <div id="part2" className="part2 hidden">
-          <p>
-            Thanks for sharing your thoughts. The truth is, there is no one
-            definition of mental health. Generally, mental health refers to your
-            emotional and social well-being. People who are mentally healthy
-            can:
+          <p className="moduleText">Thanks for sharing your thoughts!</p>
+          <img
+            src="https://cdn4.vectorstock.com/i/1000x1000/42/73/mental-health-poster-of-brain-cartoon-with-glasses-vector-17784273.jpg"
+            width="200"
+            height="200"
+          />
+
+          <p className="moduleText">
+            Generally, mental health refers to your mental, emotional and social
+            well-being. People who are mentally healthy can:
             <ul>
               <li>
-                can deal with the everyday stresses of life in a healthy way
+                <b>
+                  can deal with the everyday stresses of life in a healthy way
+                </b>
               </li>
-              <li>can work productively toward their goals</li>
+              <li>
+                <b>can work productively toward their goals</b>
+              </li>
             </ul>
-            Why is this important? Taking care of our mental health can make us
-            better students, athletes, and performers. It helps us work faster,
-            practice harder, and learn more effectively. It also helps us have
-            better relationships with our family and friends.
-            <li>
-              Why do you think it's important to take care of mental health?
-            </li>
+            Why do you think mental health might be important?
           </p>
 
           <form
@@ -89,13 +97,29 @@ class MentalHealthIntro extends React.Component {
             onSubmit={this.handleSubmit2}
           >
             <input type="text" />
-            <input type="submit" value="Submit Part 2" />
+            <input
+              className="btn btn-primary"
+              type="submit"
+              value="Submit Part 2"
+            />
           </form>
         </div>
 
         <div id="part3" className="part3 hidden">
-          <p>
-            Just like there are things we can do to improve our physical health,
+          <p className="moduleText"> Thanks for your answer</p>
+
+          <img
+            src="http://lisaraffoul.ca/wp-content/uploads/2017/05/mental-health-physical-health.jpg"
+            width="200"
+            height="200"
+          />
+
+          <p className="moduleText">
+            Staying mentally healthy helps us become better students, athletes,
+            performers, and friends. In these lessons, we'll learn about ways to
+            improve our mental health and also deal with mental health
+            challenges.
+            {/* Just like there are things we can do to improve our physical health,
             there are also things we can do to improve our mental health. Some
             examples include:
             <ul>
@@ -118,7 +142,9 @@ class MentalHealthIntro extends React.Component {
             In these lessons, we'll learn more about these challenges and how we
             can best deal with them. The good news is, no matter what challenge
             you might be struggling with, you have the power to improve your
-            health and wellbeing.
+            health and wellbeing. */}
+            Please share any questions you have that you're hoping we'll answer
+            in these lessons:
           </p>
 
           <form
@@ -127,7 +153,11 @@ class MentalHealthIntro extends React.Component {
             onSubmit={this.handleSubmit3}
           >
             <input type="textarea" />
-            <input type="submit" value="Submit Part 3" />
+            <input
+              className="btn btn-primary"
+              type="submit"
+              value="Submit Part 3"
+            />
           </form>
         </div>
         <div>

@@ -9,13 +9,21 @@ router.get("/", function(req, res, next) {
   res.render("index", { title: "Express" });
 });
 
-router.get("/failed", function(req, res, next) {
-  console.log("failed login");
+router.get("/isAuthenticated", function(req, res, next) {
+  console.log("registering the authentication check");
+  if (req.session.passport && req.user) {
+    res.json({
+      isAuthenticated: true,
+      username: req.session.passport.user.username
+    });
+  }
 });
 
-router.get("/logOut", function(req, res, next) {
+router.get("/signOut", function(req, res, next) {
   console.log("Logging out");
-  req.logOut();
+  req.logout();
+  console.log(req.user);
+  console.log(req.session);
 });
 
 router.get("/success", function(req, res, next) {

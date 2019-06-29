@@ -84,7 +84,7 @@ class LogIn extends React.Component {
                 onChange={this.handlePasswordChange}
               />
             </label>
-            <input type="submit" value="Submit" />
+            <input type="submit" className="btn btn-primary" value="Submit" />
           </form>
 
           {/* <button>Sign Up</button> */}

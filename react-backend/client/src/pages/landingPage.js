@@ -1,6 +1,7 @@
 import React from "react";
 import LogIn from "./Login";
 import SignUp from "./signUp";
+import { Redirect } from "react-router";
 
 class landingPage extends React.Component {
   constructor(props) {
@@ -8,11 +9,28 @@ class landingPage extends React.Component {
 
     this.state = {
       signIn: true,
-      signUp: false
+      signUp: false,
+      isAuthenticated: false,
+      username: ""
     };
 
     this.switchToLogIn = this.switchToLogIn.bind(this);
     this.switchToSignUp = this.switchToSignUp.bind(this);
+  }
+
+  componentDidMount() {
+    fetch("/isAuthenticated")
+      .then(res => res.json())
+      .then(data => {
+        console.log(data);
+
+        if (data.isAuthenticated === true && data.username) {
+          this.setState({
+            isAuthenticated: data.isAuthenticated,
+            username: data.username
+          });
+        }
+      });
   }
 
   switchToSignUp() {
@@ -26,7 +44,15 @@ class landingPage extends React.Component {
   }
 
   render() {
-    if (this.state.signIn === true) {
+    if (this.state.isAuthenticated === true) {
+      return (
+        <Redirect
+          to={{
+            pathname: "/quizzes/" + this.state.username
+          }}
+        />
+      );
+    } else if (this.state.signIn === true) {
       return (
         <div>
           <h2>Welcome. Please sign in</h2>
@@ -34,7 +60,7 @@ class landingPage extends React.Component {
           <button onClick={this.switchToSignUp}>Sign Up</button>
         </div>
       );
-    } else if (this.state.signUp === true) {
+    } else {
       return (
         <div>
           <h2>Welcome! Please sign up</h2>
