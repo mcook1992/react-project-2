@@ -55,9 +55,14 @@ class landingPage extends React.Component {
     } else if (this.state.signIn === true) {
       return (
         <div>
-          <h2>Welcome. Please sign in</h2>
+          <h2>Welcome! Please sign in</h2>
           <LogIn />
-          <button onClick={this.switchToSignUp}>Sign Up</button>
+          <button
+            className="extra btn btn-primary"
+            onClick={this.switchToSignUp}
+          >
+            Sign Up
+          </button>
         </div>
       );
     } else {
@@ -65,7 +70,12 @@ class landingPage extends React.Component {
         <div>
           <h2>Welcome! Please sign up</h2>
           <SignUp />
-          <button onClick={this.switchToLogIn}>LogIn</button>
+          <button
+            className="extra btn btn-primary"
+            onClick={this.switchToLogIn}
+          >
+            LogIn
+          </button>
         </div>
       );
       // } else {

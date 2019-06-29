@@ -88,7 +88,7 @@ class SignUp extends React.Component {
                 <option value="Parent">I am a parent</option>
               </select>
             </label>
-            <input type="submit" value="Submit" />
+            <input className="btn btn-primary" type="submit" value="Submit" />
           </form>
         </div>
       );
