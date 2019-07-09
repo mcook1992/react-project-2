@@ -63,6 +63,7 @@
 .btn {
   margin-left: 10px;
   margin-right: 10px;
+  margin-top: 10px;
 }
 
 img {
@@ -76,5 +77,18 @@ img {
 }
 
 label {
-  margin-right: 10px;
+  /* margin-right: 10px; */
+  margin-top: 15px;
+  display: block;
+}
+
+.secondHeading {
+  margin-top: 30px;
+  display: block;
+}
+.heading {
+  margin-left: 0%;
+}
+
+.block {
 }

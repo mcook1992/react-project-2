@@ -3,6 +3,7 @@ var router = express.Router();
 var User = require("../models/users");
 var QuizAnswers = require("../models/surveyResults");
 var passport = require("../configure/passportConfig");
+var cookieParser = require("cookie-parser");
 var Group = require("../models/classes");
 /* GET home page. */
 router.get("/", function(req, res, next) {
@@ -12,6 +13,7 @@ router.get("/", function(req, res, next) {
 router.get("/isAuthenticated", function(req, res, next) {
   console.log("registering the authentication check");
   if (req.session.passport && req.user) {
+    console.log(req.session.passport + req.user);
     res.json({
       isAuthenticated: true,
       username: req.session.passport.user.username
@@ -22,8 +24,10 @@ router.get("/isAuthenticated", function(req, res, next) {
 router.get("/signOut", function(req, res, next) {
   console.log("Logging out");
   req.logout();
-  console.log(req.user);
-  console.log(req.session);
+  res.clearCookie("cookie");
+  res.json({
+    success: "logout successful!"
+  });
 });
 
 router.get("/success", function(req, res, next) {
@@ -58,7 +62,9 @@ router.post("/", function(req, res, next) {
 
 router.post("/login", passport.authenticate("local"), function(req, res, next) {
   console.log("We're calling the login route!");
-  console.log(req.session.passport.user.username);
+
+  res.cookie("cookie", "value");
+
   res.json({
     username: req.session.passport.user.username,
     authenticated: true

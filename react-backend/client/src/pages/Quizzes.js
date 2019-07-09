@@ -70,12 +70,21 @@ class Quizzes extends React.Component {
     if (this.state.isComplete == false) {
       return (
         <div>
-          <SignOutButton className="btn btn-link pull-right" />
+          <br />
+
+          <Route path="/" component={SignOutButton} />
+          {/* <SignOutButton className="btn btn-link pull-right" /> */}
           <ModuleNav />
-          <h1>Welcome {this.state.username}</h1>
-          <h5 className="subheading">
+
+          <br />
+          <br />
+          <br />
+          <br />
+
+          <h1 className="heading text-center">Welcome {this.state.username}</h1>
+          <h5 className="subheading text-center">
             <i>
-              Pleae answer a few quick questions below. Then get started by
+              Please answer a few quick questions below. Then get started by
               clicking a lesson on the left.
             </i>
           </h5>
@@ -130,10 +139,18 @@ class Quizzes extends React.Component {
         <div>
           <SignOutButton className="btn btn-link pull-right" />
           <ModuleNav />
-          <h2>
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <h3>
             Thanks for submitting this quiz. Feel free to complete one of the
             quizzes on the side
-          </h2>
+          </h3>
 
           <Router>
             <div>

@@ -1,4 +1,5 @@
 import React from "react";
+// import { withRouter } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { Redirect } from "react-router-dom";
 
@@ -13,18 +14,20 @@ class SignOutButton extends React.Component {
   }
 
   signOut() {
-    fetch("/signOut")
+    console.log("Sign out pressed");
+    fetch("/signOut", { credentials: "same-origin" })
       .then(res => res.json())
       .then(data => {
         console.log(data);
-        this.props.history.push("/");
+        // document.location("/");
+        // this.props.history.push("/");
       });
   }
   render() {
     return (
-      <button className="pull-right btn btn-link" onClick={this.signOut}>
+      <Link to="/" className="pull-right btn btn-link" onClick={this.signOut}>
         Sign Out
-      </button>
+      </Link>
     );
   }
 }

@@ -28,12 +28,12 @@ class LogIn extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    alert(
-      "A username and password were submitted: " +
-        this.state.username +
-        " " +
-        this.state.password
-    );
+    // alert(
+    //   "A username and password were submitted: " +
+    //     this.state.username +
+    //     " " +
+    //     this.state.password
+    // );
 
     fetch("/login", {
       method: "POST",

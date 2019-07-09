@@ -78,9 +78,14 @@ class ClassPage extends React.Component {
     if (this.state.accountType === "Student") {
       return (
         <div>
-          <button onClick={this.joinClass}> Join Class</button>
+          <button className="btn btn-primary" onClick={this.joinClass}>
+            {" "}
+            Join Class
+          </button>
 
           {/* eventually map stuff here */}
+
+          <h3>Your classes</h3>
 
           <li>{this.state.currentClasses[0]}</li>
           <li>{this.state.currentClasses[1]}</li>
@@ -89,7 +94,9 @@ class ClassPage extends React.Component {
     } else if (this.state.accountType === "Teacher") {
       return (
         <div>
-          <button onClick={this.addClass}>Add Class</button>
+          <button className="btn btn-primary" onClick={this.addClass}>
+            Add Class
+          </button>
           <h2>Your classes</h2>
           {this.state.currentClasses.map((item, i) => (
             <li>
