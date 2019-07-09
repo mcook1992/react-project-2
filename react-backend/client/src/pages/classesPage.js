@@ -85,7 +85,7 @@ class ClassPage extends React.Component {
 
           {/* eventually map stuff here */}
 
-          <h3>Your classes</h3>
+          <h3>Your Classes</h3>
 
           <li>{this.state.currentClasses[0]}</li>
           <li>{this.state.currentClasses[1]}</li>
