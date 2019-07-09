@@ -30,10 +30,6 @@ router.get("/signOut", function(req, res, next) {
   });
 });
 
-router.get("/success", function(req, res, next) {
-  console.log("successful login");
-});
-
 router.post("/", function(req, res, next) {
   console.log(req.body);
 
@@ -49,6 +45,7 @@ router.post("/", function(req, res, next) {
           console.log(err);
         } else {
           console.log("successfully logged in new user");
+          res.cookie("cookie", "value");
           res.json({
             id: 1,
             username: req.body,

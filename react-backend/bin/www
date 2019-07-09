@@ -5,9 +5,12 @@
  */
 
 var app = require("../app");
+require("dotenv").config();
 var debug = require("debug")("react-backend:server");
 var http = require("http");
 var mongoose = require("mongoose");
+
+var URI = require("../configure/mlabConfig");
 
 /**
  * Get port from environment and store in Express.
@@ -19,8 +22,12 @@ app.set("port", port);
 //mongoose stuff//
 
 //Set up default mongoose connection
-var mongoDB = "mongodb://127.0.0.1/mh_curriculum_database";
-mongoose.connect(mongoDB, { useNewUrlParser: true });
+// var mongoDB = "mongodb://127.0.0.1/mh_curriculum_database";
+mongoose.connect(
+  process.env.MONGODB_URI ||
+    "mongodb://admin:Coletrane1992!@ds349247.mlab.com:49247/heroku_vx6bjmjz",
+  { useNewUrlParser: true }
+);
 
 //Get the default connection
 var db = mongoose.connection;
