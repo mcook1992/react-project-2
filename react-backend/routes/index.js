@@ -7,7 +7,7 @@ var cookieParser = require("cookie-parser");
 var Group = require("../models/classes");
 /* GET home page. */
 router.get("/", function(req, res, next) {
-  // res.render("index", { title: "Express" });
+  res.render("index");
 });
 
 router.get("/isAuthenticated", function(req, res, next) {
