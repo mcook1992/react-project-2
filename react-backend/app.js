@@ -24,6 +24,7 @@ app.use(cookieParser());
 // app.use(express.static(path.join(__dirname, "public")));
 
 express.static(path.join(__dirname, "./client/build"));
+app.use(express.static(path.resolve(__dirname, "./client/build")));
 //passport stuff
 // app.use(express.static("public"));
 app.use(session({ secret: "cats" }));

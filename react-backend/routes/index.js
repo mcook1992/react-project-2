@@ -5,9 +5,12 @@ var QuizAnswers = require("../models/surveyResults");
 var passport = require("../configure/passportConfig");
 var cookieParser = require("cookie-parser");
 var Group = require("../models/classes");
+var path = require("path");
 /* GET home page. */
+
+//trying to render react static pages
 router.get("/", function(req, res, next) {
-  res.render("index");
+  res.sendFile(path.resolve(__dirname, "../react-ui/build", "index.html"));
 });
 
 router.get("/isAuthenticated", function(req, res, next) {
