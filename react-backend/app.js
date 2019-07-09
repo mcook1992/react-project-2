@@ -6,6 +6,7 @@ var logger = require("morgan");
 var session = require("express-session");
 var bodyParser = require("body-parser");
 var passport = require("passport");
+var path = require("path");
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
