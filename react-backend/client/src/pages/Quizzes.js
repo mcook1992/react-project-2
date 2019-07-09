@@ -9,7 +9,7 @@ class Quizzes extends React.Component {
     super(props);
     this.state = {
       isComplete: false,
-      username: this.props.location.pathname.replace("/quizzes/", ""),
+      username: "",
       // currentText: "",
       questionArray: [
         { label: "How stressed do you currently feel?", value: "", key: 1 },
@@ -31,6 +31,21 @@ class Quizzes extends React.Component {
     this.change = this.change.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
+
+  componentDidMount() {
+    fetch("/isAuthenticated", {
+      method: "GET",
+      headers: { "Content-Type": "application/json" }
+    })
+      .then(res => res.json())
+      .then(data => {
+        console.log(data);
+        this.setState({
+          username: data.username
+        });
+      });
+  }
+
   change(event, id) {
     console.log(event.target.value);
 

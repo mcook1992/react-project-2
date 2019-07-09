@@ -50,7 +50,7 @@ class landingPage extends React.Component {
       return (
         <Redirect
           to={{
-            pathname: "/quizzes/" + this.state.username
+            pathname: "/quizzes"
           }}
         />
       );

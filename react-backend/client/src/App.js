@@ -46,15 +46,15 @@ class App extends Component {
             <NavTabs />
             <Route exact path="/" component={landingPage} />
             <Route exact path="/learn" component={Learn} />
-            <Route exact path="/quizzes/:name" component={Quizzes} />
+            <Route exact path="/quizzes" component={Quizzes} />
             {/* <Route exact path="/loginForm" component={Login} /> */}
             <Route exact path="/Profile" component={Profile} />
             <Route exact path="/Classes" component={ClassPage} />
             <Route exact path="/learn/module1" component={MentalHealthIntro} />
-            <Route exact path="/classes/:name" component={singleClassPage} />
+            <Route exact path="/classes" component={singleClassPage} />
             <Route
               exact
-              path="/studentProfile/:name"
+              path="/studentProfile/"
               component={studentProfilePage}
             />
 
@@ -62,7 +62,7 @@ class App extends Component {
             <Route path="/contact" component={Contact} /> */}
           </div>
         </Router>
-        {/* <SignOutButton className={this.state.signOutbuttonClass} /> */}
+        {/* a */}
 
         {/* /* <h1>Users</h1>
         {this.state.users.map(user => (

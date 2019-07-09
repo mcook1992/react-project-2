@@ -60,7 +60,7 @@ class LogIn extends React.Component {
       return (
         <Redirect
           to={{
-            pathname: "/quizzes/" + name
+            pathname: "/quizzes"
           }}
         />
       );
