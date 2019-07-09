@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node react-backend/bin/www"
+    "start": "node react-backend/bin/www",
+    "heroku-postbuild": "cd react-backend/client && npm install --only=dev && npm install && npm run build"
   },
   "repository": {
     "type": "git",

@@ -10,7 +10,7 @@ var path = require("path");
 
 //trying to render react static pages
 router.get("/", function(req, res, next) {
-  res.sendFile(path.join(__dirname, "../client/build", "index.html"));
+  res.sendFile(path.join(__dirname, "../client/build/", "index.html"));
 });
 
 router.get("/isAuthenticated", function(req, res, next) {
