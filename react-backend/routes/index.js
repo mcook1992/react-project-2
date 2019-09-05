@@ -65,10 +65,16 @@ router.post("/login", passport.authenticate("local"), function(req, res, next) {
 
   res.cookie("cookie", "value");
 
-  res.json({
-    username: req.session.passport.user.username,
-    authenticated: true
-  });
+  if (req.session.passport.user) {
+    res.json({
+      username: req.session.passport.user.username,
+      authenticated: true
+    });
+  } else {
+    res.json({
+      err: "Invalid username or password."
+    });
+  }
 });
 
 router.post("/quizzes/:quizID/:name", function(req, res, next) {

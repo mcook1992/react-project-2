@@ -7,6 +7,7 @@ var session = require("express-session");
 var bodyParser = require("body-parser");
 var passport = require("passport");
 var path = require("path");
+var flash = require("connect-flash");
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
@@ -28,6 +29,7 @@ app.use(express.static(path.join(__dirname, "./client/build")));
 //passport stuff
 // app.use(express.static("public"));
 app.use(session({ secret: "cats" }));
+app.use(flash());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(passport.initialize());
 app.use(passport.session());
