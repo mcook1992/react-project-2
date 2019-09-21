@@ -60,22 +60,56 @@ router.post("/", function(req, res, next) {
   });
 });
 
-router.post("/login", passport.authenticate("local"), function(req, res, next) {
-  console.log("We're calling the login route!");
+router.post(
+  "/login",
+  // passport.authenticate("local", { failWithError: true }),
+  function(req, res, next) {
+    console.log("We're calling the login route!");
 
-  res.cookie("cookie", "value");
+    res.cookie("cookie", "value");
 
-  if (req.session.passport.user) {
-    res.json({
-      username: req.session.passport.user.username,
-      authenticated: true
-    });
-  } else {
-    res.json({
-      err: "Invalid username or password."
-    });
+    passport.authenticate("local", function(err, user, info) {
+      if (err) {
+        return next(err);
+      }
+
+      if (!user) {
+        return res.json({
+          authenticated: false,
+          message: "incorrect username or password"
+        });
+      }
+
+      if (user.password != req.body.password) {
+        return res.json({
+          authenticated: false,
+          message: "incorrect username or password"
+        });
+      }
+
+      req.logIn(user, function(err) {
+        if (err) {
+          return next(err);
+        }
+        return res.json({
+          username: req.session.passport.user.username,
+          authenticated: true
+        });
+      });
+    })(req, res, next);
+
+    // if (req.session.passport.user) {
+    //   res.json({
+    //     username: req.session.passport.user.username,
+    //     authenticated: true
+    //   });
+    // } else {
+    //   res.json({
+    //     err: "Invalid username or password."
+    //   });
+    // }
   }
-});
+);
 
 router.post("/quizzes/:quizID/:name", function(req, res, next) {
   console.log("Registering Quiz Data");

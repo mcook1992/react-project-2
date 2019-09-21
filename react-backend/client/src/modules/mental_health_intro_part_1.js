@@ -40,7 +40,26 @@ class MentalHealthIntro extends React.Component {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        module: { id: 1, name: "Mental Health Intro Part 1" }
+        module: {
+          id: 1,
+          name: "Mental Health Intro Part 1",
+          moduleAnswers: [
+            {
+              question:
+                "write a little bit about what you think mental health means",
+              answer: this.state.part1Class
+            },
+            {
+              question: "Why do you think mental health might be important?",
+              answer: this.state.part2Class
+            },
+            {
+              question:
+                " Please share any questions you have that you're hoping we'll answer in these lessons:",
+              answer: this.state.part3Class
+            }
+          ]
+        }
       })
     });
   }

@@ -20,6 +20,7 @@ passport.use(
         console.log(user.password);
 
         if (password != user.password) {
+          console.log("We're checking the password");
           return done(null, false, { message: "Incorrect password" });
         }
 

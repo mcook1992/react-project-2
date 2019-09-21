@@ -39,6 +39,16 @@ class Profile extends React.Component {
             <li>{item.name}</li>
           ))}
         </div>
+        <div>
+          <h2>This is past stress data</h2>
+          <div>
+            {this.state.pastSurveyData.map((item, i) => (
+              <p>
+                {item.dateSubmitted}: {item.quizQuestions[0].value}
+              </p>
+            ))}
+          </div>
+        </div>
       </div>
     );
   }
