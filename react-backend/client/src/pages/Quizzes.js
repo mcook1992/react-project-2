@@ -19,7 +19,7 @@ class Quizzes extends React.Component {
           key: 2
         },
         {
-          label: "Do you feel like your teacher cares about",
+          label: "Do you feel like your teacher cares about you?",
           value: "",
           key: 3
         }
