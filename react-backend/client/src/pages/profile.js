@@ -9,6 +9,8 @@ import {
   Legend
 } from "recharts";
 
+import ModuleButton from "../components/module-button";
+
 class Profile extends React.Component {
   constructor(props) {
     super(props);
@@ -19,6 +21,8 @@ class Profile extends React.Component {
       pastSurveyData: [],
       stressLevelArray: []
     };
+
+    this.showModuleText = this.showModuleText.bind(this);
   }
 
   componentDidMount() {
@@ -50,6 +54,19 @@ class Profile extends React.Component {
       });
   }
 
+  showModuleText(event) {
+    event.preventDefault();
+    const x = event.target.value;
+    const y = event.target.data;
+    const target = event.target;
+    console.log(target);
+    const element = document.getElementById(x + y);
+
+    //right now, we have grabbed teh button and also grabbed the div element
+    //add an "active" class to the button when it's clicked
+    //If the active tag is on the button do one thing, if it's not, reveal the text
+  }
+
   render() {
     return (
       <div>
@@ -60,8 +77,10 @@ class Profile extends React.Component {
         <div>
           {this.state.modulesCompleted.map((item, i) => (
             <li>
-              <button value={item.name}>{item.name}</button>
-              <div>
+              <button value={item.name} data={i} onClick={this.showModuleText}>
+                {item.name}
+              </button>
+              <div id={item.name + i}>
                 {item.moduleAnswers.map((element, e) => (
                   <p>
                     {element.question}
