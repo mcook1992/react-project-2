@@ -57,10 +57,19 @@ class Profile extends React.Component {
   showModuleText(event) {
     event.preventDefault();
     const x = event.target.value;
-    const y = event.target.data;
+    // const y = event.target.dataValue;
     const target = event.target;
-    console.log(target);
-    const element = document.getElementById(x + y);
+
+    const element = document.getElementById(x);
+    console.log(element);
+
+    if (target.className == "active") {
+      target.className = "inactive module-button";
+      element.className = "hidden";
+    } else {
+      target.className = "active module-button";
+      element.className = "module-answer-text";
+    }
 
     //right now, we have grabbed teh button and also grabbed the div element
     //add an "active" class to the button when it's clicked
@@ -76,8 +85,18 @@ class Profile extends React.Component {
 
         <div>
           {this.state.modulesCompleted.map((item, i) => (
+            <ModuleButton buttonName={item.name} item={item}></ModuleButton>
+          ))}
+        </div>
+
+        {/* <div>
+          {this.state.modulesCompleted.map((item, i) => (
             <li>
-              <button value={item.name} data={i} onClick={this.showModuleText}>
+              <button
+                value={item.name + i}
+                // dataValue={i}
+                onClick={this.showModuleText}
+              >
                 {item.name}
               </button>
               <div id={item.name + i}>
@@ -93,7 +112,7 @@ class Profile extends React.Component {
               </div>
             </li>
           ))}
-        </div>
+        </div> */}
         {/* <div>
           <h2>This is past stress data</h2>
           <div>
