@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { randomBytes } from "crypto";
 
 class ClassPage extends React.Component {
   constructor(props) {
@@ -8,7 +9,8 @@ class ClassPage extends React.Component {
       accountType: "",
       currentClasses: [],
       classClicked: false,
-      classArray: { name: "", array: [] }
+      classArray: { name: "", array: [] },
+      newClassName: ""
     };
 
     this.addClass = this.addClass.bind(this);
@@ -31,7 +33,7 @@ class ClassPage extends React.Component {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        newClassName: "testClass3"
+        newClassName: Math.random() * 1000
       })
     })
       .then(res => res.json())
