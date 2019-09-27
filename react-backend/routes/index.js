@@ -195,7 +195,8 @@ router.get("/addClasses", function(req, res, next) {
         console.log("Successfully got a user for the add classes page");
         res.json({
           currentClasses: data.classNames,
-          accountType: data.accountType
+          accountType: data.accountType,
+          user: req.session.passport.user.username
         });
       }
     });

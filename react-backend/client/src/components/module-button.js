@@ -3,21 +3,50 @@ import React from "react";
 class ModuleButton extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { active: false };
+    this.state = {
+      buttonClassName: "inactive module-button",
+      textClassName: "hidden module-answer-text"
+    };
+    this.changeState = this.changeState.bind(this);
   }
 
-  click() {
-    this.setState({ active: true });
+  changeState() {
+    if (this.state.buttonClassName == "inactive module-button") {
+      this.setState({
+        buttonClassName: "active module-button",
+        textClassName: "module-answer-text"
+      });
+    } else {
+      this.setState({
+        buttonClassName: "inactive module-button",
+        textClassName: "hidden module-answer-text"
+      });
+    }
   }
 
   render() {
-    if (this.state.active == false) {
-      return (
-        <button className="hidden" onClick={this.click.bind(this)}></button>
-      );
-    } else {
-      return <button onClick={this.click.bind(this)}></button>;
-    }
+    return (
+      <div>
+        <button
+          className={this.state.buttonClassName}
+          onClick={this.changeState}
+        >
+          {this.props.buttonName}
+        </button>
+
+        <div className={this.state.textClassName}>
+          {this.props.item.moduleAnswers.map((element, e) => (
+            <p>
+              {element.question}
+
+              <br></br>
+
+              {element.answer}
+            </p>
+          ))}
+        </div>
+      </div>
+    );
   }
 }
 
