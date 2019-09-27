@@ -51,7 +51,11 @@ class App extends Component {
             <Route exact path="/Profile" component={Profile} />
             <Route exact path="/Classes" component={ClassPage} />
             <Route exact path="/learn/module1" component={MentalHealthIntro} />
-            <Route exact path="/classes" component={singleClassPage} />
+            <Route
+              exact
+              path="/classes/:classname"
+              component={singleClassPage}
+            />
             <Route
               exact
               path="/studentProfile/"

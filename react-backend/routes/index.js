@@ -262,7 +262,7 @@ router.post("/joinClasses", function(req, res, next) {
           }
         });
       } else {
-        console.log("this group does not exist yet.");
+        console.log("this class does not exist yet.");
       }
     });
   }
@@ -270,12 +270,17 @@ router.post("/joinClasses", function(req, res, next) {
 
 router.get("/displayClass/:classname", function(req, res, next) {
   console.log("registering display things");
+  console.log(req.params.classname);
   Group.findOne({ name: req.params.classname }, function(err, data) {
     if (data) {
+      console.log("We found a class. Here's the info");
+      console.log(data);
       if (req.session.passport.user.username == data.teacherNames[0]) {
         res.json({
           studentNameArray: data.studentNames
         });
+      } else {
+        console.log("Wrong user logged in");
       }
     } else {
       console.log("We couldn't find the class");
