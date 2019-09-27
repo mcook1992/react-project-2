@@ -7,7 +7,7 @@ class SignUp extends React.Component {
     this.state = {
       username: "",
       password: "",
-      accountType: "none",
+      accountType: "Teacher",
       isAuthenticated: false
     };
 
