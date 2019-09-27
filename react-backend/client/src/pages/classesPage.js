@@ -10,7 +10,9 @@ class ClassPage extends React.Component {
       currentClasses: [],
       classClicked: false,
       classArray: { name: "", array: [] },
-      newClassName: ""
+      newClassName: "",
+      currentNumberOfClasses: 100,
+      username: ""
     };
 
     this.addClass = this.addClass.bind(this);
@@ -33,13 +35,17 @@ class ClassPage extends React.Component {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        newClassName: Math.random() * 1000
+        newClassName:
+          this.state.username + " " + this.state.currentNumberOfClasses
       })
     })
       .then(res => res.json())
       .then(data => {
         console.log(data);
-        this.setState({ currentClasses: data.classNames });
+        this.setState({
+          currentClasses: data.classNames,
+          currentNumberOfClasses: this.state.currentNumberOfClasses + 1
+        });
       });
   }
 
@@ -69,9 +75,12 @@ class ClassPage extends React.Component {
       .then(res => res.json())
       .then(data => {
         console.log(data);
+        const classesNumber = data.currentClasses.length + 100;
         this.setState({
           accountType: data.accountType,
-          currentClasses: data.currentClasses
+          currentClasses: data.currentClasses,
+          username: data.user,
+          currentNumberOfClasses: classesNumber
         });
       });
   }
