@@ -12,6 +12,7 @@ import ClassPage from "./pages/classesPage";
 import singleClassPage from "./pages/singleClassPage";
 import studentProfilePage from "./pages/studentProfile";
 import landingPage from "./pages/landingPage";
+import AssignmentPage from "./pages/AssignmentPage";
 
 class App extends Component {
   state = {
@@ -51,6 +52,7 @@ class App extends Component {
             <Route exact path="/Profile" component={Profile} />
             <Route exact path="/Classes" component={ClassPage} />
             <Route exact path="/learn/module1" component={MentalHealthIntro} />
+            <Route exact path="/assignmentPage" component={AssignmentPage} />
             <Route
               exact
               path="/classes/:classname"

@@ -78,10 +78,6 @@ class Quizzes extends React.Component {
   }
 
   render() {
-    console.log(this.props.location);
-    const name = this.props.location.pathname.replace("/quizzes/", "");
-    console.log(name);
-
     if (this.state.isComplete == false) {
       return (
         <div>
@@ -126,6 +122,8 @@ class Quizzes extends React.Component {
               value="Submit"
             />
           </form>
+
+          <h4>Assigned Classes</h4>
 
           {/* <Router>
             <div>
