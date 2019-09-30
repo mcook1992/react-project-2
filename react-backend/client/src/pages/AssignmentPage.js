@@ -6,19 +6,21 @@ class AssignmentPage extends React.Component {
     super(props);
     this.state = {
       nameOfAssignment: "",
+      moduleSelected: "",
       classAssigned: "",
       studentsAssigned: "",
       userName: "",
-      classArray: ["TestTeacher1-103"],
+      classArray: ["", "TestTeacher1-103"],
       moduleArray: [
+        "",
         "Mental Health Introduction",
         "Dealing with Anxiety",
         "Stress busting"
       ]
     };
 
-    this.createListOfClasses = this.createListOfClasses.bind(this);
-    this.createListOfModules = this.createListOfModules.bind(this);
+    this.changeClassSelected = this.changeClassSelected.bind(this);
+    this.changeModuleSelected = this.changeModuleSelected.bind(this);
   }
 
   componentDidMount() {
@@ -35,43 +37,19 @@ class AssignmentPage extends React.Component {
       });
   }
 
-  createListOfModules() {
-    let modules = [];
-    for (let i = 0; i <= this.state.moduleArray.length; i++) {
-      var moduleName = this.state.moduleArray[i];
-
-      modules.push(
-        <option key={i} value={moduleName}>
-          {moduleName}
-        </option>
-      );
-      //here I will be creating my options dynamically based on
-      //what props are currently passed to the parent component
-    }
-    for (let i = 0; i <= this.state.classArray; i++) {
-      var className = this.state.classArray[i];
-      modules.push(
-        <option key={i} value={className}>
-          {className}
-        </option>
-      );
-    }
-
-    return modules;
+  changeModuleSelected(e) {
+    console.log(e.target.value);
+    this.setState({
+      moduleSelected: e.target.value
+    });
   }
 
-  createListOfClasses() {
-    let classNameArray = [];
-    for (let i = 0; i <= this.state.classArray; i++) {
-      var className = this.state.classArray[i];
-      classNameArray.push(
-        <option key={i} value={className}>
-          {className}
-        </option>
-      );
-    }
-
-    return classNameArray;
+  changeClassSelected(e) {
+    console.log(e.target.value);
+    this.setState({
+      classAssigned: e.target.value
+    });
+    console.log(this.state);
   }
 
   render() {
@@ -81,7 +59,11 @@ class AssignmentPage extends React.Component {
           Which module would you like to assign?
           <br></br>
           <br></br>
-          <select name="moduleAssigned" value="test">
+          <select
+            name="moduleAssigned"
+            value={this.state.moduleSelected}
+            onChange={this.changeModuleSelected}
+          >
             {this.state.moduleArray.map((e, key) => {
               return (
                 <option key={key} value={e}>
@@ -95,7 +77,11 @@ class AssignmentPage extends React.Component {
           Which class would you like to assign it to?
           <br></br>
           <br></br>
-          <select name="classAssigned" value="testing">
+          <select
+            name="classAssigned"
+            value={this.state.classAssigned}
+            onChange={this.changeClassSelected}
+          >
             {this.state.classArray.map((e, key) => {
               return (
                 <option key={key} value={e}>
@@ -111,3 +97,39 @@ class AssignmentPage extends React.Component {
 }
 
 export default AssignmentPage;
+
+// createListOfModules() {
+//   let modules = [];
+//   for (let i = 0; i <= this.state.moduleArray.length; i++) {
+//     var moduleName = this.state.moduleArray[i];
+
+//     modules.push(
+//       <option key={i} value={moduleName}>
+//         {moduleName}
+//       </option>
+//     );
+//     //here I will be creating my options dynamically based on
+//     //what props are currently passed to the parent component
+//   }
+//   for (let i = 0; i <= this.state.classArray; i++) {
+//     var className = this.state.classArray[i];
+//     modules.push(
+//       <option key={i} value={className}>
+//         {className}
+//       </option>
+//     );
+//   }
+
+//   return modules;
+// }
+
+// createListOfClasses() {
+//   let classNameArray = [];
+//   for (let i = 0; i <= this.state.classArray; i++) {
+//     var className = this.state.classArray[i];
+//     classNameArray.push(
+//       <option key={i} value={className}>
+//         {className}
+//       </option>
+//     );
+//   }
