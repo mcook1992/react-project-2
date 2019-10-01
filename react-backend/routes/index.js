@@ -311,4 +311,33 @@ router.get("/studentProfiles/:name", function(req, res, next) {
   );
 });
 
+router.post("/createAssignment", function(req, res, next) {
+  console.log("registering the create assignments request");
+  var lastUser;
+  console.log(
+    req.body.username + req.body.classAssigned + req.body.moduleAssigned
+  );
+
+  Group.findOne({ name: req.body.classAssigned }, function(err, group) {
+    console.log(group.teacherNames[0]);
+    group.studentNames.forEach(element => {
+      console.log(element);
+      User.findOne({ username: element }, function(err, user) {
+        user.modulesAssigned.push(req.body.moduleAssigned);
+        user.save(function(err) {
+          if (!err) {
+            console.log(
+              "successfully saved assignment to user " + user.username
+            );
+          }
+        });
+        console.log(user.username);
+      });
+    });
+    res.json({
+      usersUpdated: group.studentNames
+    });
+  });
+});
+
 module.exports = router;

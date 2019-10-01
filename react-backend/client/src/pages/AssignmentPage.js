@@ -7,10 +7,10 @@ class AssignmentPage extends React.Component {
     this.state = {
       nameOfAssignment: "",
       moduleSelected: "",
-      classAssigned: "",
+      classAssigned: "TestTeacher1-103",
       studentsAssigned: "",
       userName: "",
-      classArray: ["", "TestTeacher1-103"],
+      classArray: ["TestTeacher1-103"],
       moduleArray: [
         "",
         "Mental Health Introduction",
@@ -21,6 +21,7 @@ class AssignmentPage extends React.Component {
 
     this.changeClassSelected = this.changeClassSelected.bind(this);
     this.changeModuleSelected = this.changeModuleSelected.bind(this);
+    this.createAssignment = this.createAssignment.bind(this);
   }
 
   componentDidMount() {
@@ -52,9 +53,30 @@ class AssignmentPage extends React.Component {
     console.log(this.state);
   }
 
+  createAssignment(event) {
+    event.preventDefault();
+    if (this.state.moduleSelected && this.state.classAssigned) {
+      fetch("/createAssignment", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          classAssigned: this.state.classAssigned,
+          moduleAssigned: this.state.moduleSelected,
+          username: this.state.userName
+        })
+      })
+        .then(res => res.json())
+        .then(data => {
+          console.log(data);
+        });
+    } else {
+      console.log("No request made");
+    }
+  }
+
   render() {
     return (
-      <form>
+      <form onSubmit={this.createAssignment}>
         <label>
           Which module would you like to assign?
           <br></br>
@@ -91,6 +113,11 @@ class AssignmentPage extends React.Component {
             })}
           </select>
         </label>
+        <input
+          className="submit btn btn-primary"
+          type="submit"
+          value="Create Assignment!"
+        />
       </form>
     );
   }
