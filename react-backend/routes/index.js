@@ -146,11 +146,12 @@ router.get("/profile", function(req, res, next) {
           err,
           user
         ) {
-          console.log(user.modulesCompleted);
+          console.log(user.modulesAssigned[0]);
           res.json({
             username: req.session.passport.user.username,
             data: data,
-            modules: user.modulesCompleted
+            modules: user.modulesCompleted,
+            assignments: user.modulesAssigned
           });
         });
       }

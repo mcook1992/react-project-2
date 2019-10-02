@@ -19,6 +19,7 @@ class Profile extends React.Component {
       accountType: "none",
       modulesCompleted: [],
       pastSurveyData: [],
+      assignments: [],
       stressLevelArray: []
     };
 
@@ -47,10 +48,11 @@ class Profile extends React.Component {
           username: data.username,
           pastSurveyData: data.data,
           modulesCompleted: data.modules,
-          stressLevelArray: stressLevelArray
+          stressLevelArray: stressLevelArray,
+          assignments: data.assignments
         });
 
-        console.log(this.state.stressLevelArray);
+        console.log(this.state.assignments);
       });
   }
 
@@ -87,6 +89,15 @@ class Profile extends React.Component {
           {this.state.modulesCompleted.map((item, i) => (
             <ModuleButton buttonName={item.name} item={item}></ModuleButton>
           ))}
+        </div>
+
+        <div>
+          <h3>Assignments</h3>
+          <div>
+            {this.state.assignments.map((item, i) => (
+              <p>{item}</p>
+            ))}
+          </div>
         </div>
 
         {/* <div>
