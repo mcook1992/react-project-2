@@ -146,11 +146,12 @@ router.get("/profile", function(req, res, next) {
           err,
           user
         ) {
-          console.log(user.modulesCompleted);
+          console.log(user.modulesAssigned[0]);
           res.json({
             username: req.session.passport.user.username,
             data: data,
-            modules: user.modulesCompleted
+            modules: user.modulesCompleted,
+            assignments: user.modulesAssigned
           });
         });
       }
@@ -262,7 +263,7 @@ router.post("/joinClasses", function(req, res, next) {
           }
         });
       } else {
-        console.log("this group does not exist yet.");
+        console.log("this class does not exist yet.");
       }
     });
   }
@@ -270,12 +271,17 @@ router.post("/joinClasses", function(req, res, next) {
 
 router.get("/displayClass/:classname", function(req, res, next) {
   console.log("registering display things");
+  console.log(req.params.classname);
   Group.findOne({ name: req.params.classname }, function(err, data) {
     if (data) {
+      console.log("We found a class. Here's the info");
+      console.log(data);
       if (req.session.passport.user.username == data.teacherNames[0]) {
         res.json({
           studentNameArray: data.studentNames
         });
+      } else {
+        console.log("Wrong user logged in");
       }
     } else {
       console.log("We couldn't find the class");
@@ -304,6 +310,35 @@ router.get("/studentProfiles/:name", function(req, res, next) {
       });
     }
   );
+});
+
+router.post("/createAssignment", function(req, res, next) {
+  console.log("registering the create assignments request");
+  var lastUser;
+  console.log(
+    req.body.username + req.body.classAssigned + req.body.moduleAssigned
+  );
+
+  Group.findOne({ name: req.body.classAssigned }, function(err, group) {
+    console.log(group.teacherNames[0]);
+    group.studentNames.forEach(element => {
+      console.log(element);
+      User.findOne({ username: element }, function(err, user) {
+        user.modulesAssigned.push(req.body.moduleAssigned);
+        user.save(function(err) {
+          if (!err) {
+            console.log(
+              "successfully saved assignment to user " + user.username
+            );
+          }
+        });
+        console.log(user.username);
+      });
+    });
+    res.json({
+      usersUpdated: group.studentNames
+    });
+  });
 });
 
 module.exports = router;

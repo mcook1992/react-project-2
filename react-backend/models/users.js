@@ -8,6 +8,7 @@ var userSchema = new Schema({
   password: String,
   dateCreated: { type: Date, default: Date.now() },
   accountType: String,
+  modulesAssigned: [],
   modulesCompleted: [],
   classNames: []
 });

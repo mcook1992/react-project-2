@@ -12,11 +12,15 @@ class ClassPage extends React.Component {
       classArray: { name: "", array: [] },
       newClassName: "",
       currentNumberOfClasses: 100,
-      username: ""
+      username: "",
+      studentJoinClassValue: ""
     };
 
     this.addClass = this.addClass.bind(this);
     this.joinClass = this.joinClass.bind(this);
+    this.handleStudentJoinClassChange = this.handleStudentJoinClassChange.bind(
+      this
+    );
 
     //bind functions here
   }
@@ -36,7 +40,7 @@ class ClassPage extends React.Component {
       },
       body: JSON.stringify({
         newClassName:
-          this.state.username + " " + this.state.currentNumberOfClasses
+          this.state.username + "-" + this.state.currentNumberOfClasses
       })
     })
       .then(res => res.json())
@@ -49,6 +53,10 @@ class ClassPage extends React.Component {
       });
   }
 
+  handleStudentJoinClassChange(event) {
+    this.setState({ studentJoinClassValue: event.target.value });
+  }
+
   joinClass(event) {
     event.preventDefault();
     fetch("/joinClasses", {
@@ -58,7 +66,7 @@ class ClassPage extends React.Component {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        newClassName: "testClass3"
+        newClassName: this.state.studentJoinClassValue
       })
     })
       .then(res => res.json())
@@ -89,6 +97,19 @@ class ClassPage extends React.Component {
     if (this.state.accountType === "Student") {
       return (
         <div>
+          <form>
+            <label>
+              Enter the name of the class you wish to join (make sure to double
+              check spelling)
+            </label>
+            <br></br>
+            <input
+              type="text"
+              name="username"
+              onChange={this.handleStudentJoinClassChange}
+            />
+          </form>
+
           <button className="btn btn-primary" onClick={this.joinClass}>
             {" "}
             Join Class

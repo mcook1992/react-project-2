@@ -11,6 +11,11 @@ class singleClassPage extends React.Component {
   }
 
   componentDidMount() {
+    //setting the state early so that we can fetch the right class page
+    this.setState({
+      className: this.props.location.pathname.replace("/classes/", "")
+    });
+
     fetch("/displayClass/" + this.state.className)
       .then(res => res.json())
       .then(data => {
