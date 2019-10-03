@@ -281,13 +281,33 @@ router.post("/joinClasses", function(req, res, next) {
 router.get("/displayClass/:classname", function(req, res, next) {
   console.log("registering display things");
   console.log(req.params.classname);
+  var studentInfo = [];
   Group.findOne({ name: req.params.classname }, function(err, data) {
     if (data) {
       console.log("We found a class. Here's the info");
       console.log(data);
       if (req.session.passport.user.username == data.teacherNames[0]) {
-        res.json({
-          studentNameArray: data.studentNames
+        //grabbing stress etc. information from every student in their class
+        var length = data.studentNames.length;
+        var counter = 0;
+        data.studentNames.forEach(element => {
+          QuizAnswers.find({ studentID: element }, function(err, dat) {
+            console.log("We found some students in the class");
+            console.log(dat);
+            if (!err) {
+              studentInfo.push(dat);
+              console.log("We pushed some data");
+              counter++;
+              if (counter == length) {
+                res.json({
+                  studentNameArray: data.studentNames,
+                  data: studentInfo
+                });
+              }
+            } else {
+              console.log(err);
+            }
+          });
         });
       } else {
         console.log("Wrong user logged in");

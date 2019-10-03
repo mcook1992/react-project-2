@@ -6,7 +6,8 @@ class singleClassPage extends React.Component {
     super(props);
     this.state = {
       className: this.props.location.pathname.replace("/classes/", ""),
-      studentArray: []
+      studentArray: [],
+      data: []
     };
   }
 
