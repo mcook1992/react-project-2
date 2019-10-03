@@ -95,7 +95,7 @@ class Profile extends React.Component {
           <h3>Assignments</h3>
           <div>
             {this.state.assignments.map((item, i) => (
-              <p>{item}</p>
+              <p>{item.modules}</p>
             ))}
           </div>
         </div>

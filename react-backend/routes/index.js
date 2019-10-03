@@ -146,12 +146,21 @@ router.get("/profile", function(req, res, next) {
           err,
           user
         ) {
-          console.log(user.modulesAssigned[0]);
+          var incompletedAssignments = [];
+          var completedAssignments = [];
+          user.modulesAssigned.forEach(element => {
+            if (element.complete) {
+              completedAssignments.push(element);
+            } else {
+              incompletedAssignments.push(element);
+            }
+          });
+
           res.json({
             username: req.session.passport.user.username,
             data: data,
             modules: user.modulesCompleted,
-            assignments: user.modulesAssigned
+            assignments: incompletedAssignments
           });
         });
       }
@@ -314,17 +323,29 @@ router.get("/studentProfiles/:name", function(req, res, next) {
 
 router.post("/createAssignment", function(req, res, next) {
   console.log("registering the create assignments request");
-  var lastUser;
+
   console.log(
     req.body.username + req.body.classAssigned + req.body.moduleAssigned
   );
+
+  var newAssignmentObject = {
+    modules: req.body.moduleAssigned,
+    completed: false
+  };
 
   Group.findOne({ name: req.body.classAssigned }, function(err, group) {
     console.log(group.teacherNames[0]);
     group.studentNames.forEach(element => {
       console.log(element);
       User.findOne({ username: element }, function(err, user) {
-        user.modulesAssigned.push(req.body.moduleAssigned);
+        user.modulesCompleted.forEach(elem => {
+          console.log(elem);
+          if (elem == newAssignmentObject.moduleAssigned) {
+            newAssignmentObject.completed = true;
+          }
+        });
+
+        user.modulesAssigned.push(newAssignmentObject);
         user.save(function(err) {
           if (!err) {
             console.log(
