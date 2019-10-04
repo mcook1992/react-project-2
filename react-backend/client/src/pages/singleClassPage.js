@@ -35,6 +35,7 @@ class singleClassPage extends React.Component {
             </li>
           ))}
         </div>
+        <h2>Class Data</h2>
       </div>
     );
   }
