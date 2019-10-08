@@ -12,6 +12,7 @@ import {
 import { BarChart, Bar } from "recharts";
 import Moment from "moment";
 import moment from "moment";
+import { getAverageScore } from "../getting-daily-average";
 
 class singleClassPage extends React.Component {
   constructor(props) {
@@ -34,8 +35,9 @@ class singleClassPage extends React.Component {
       .then(res => res.json())
       .then(data => {
         console.log(data);
+        //this is the array that will make the line graph of average stress levels over time
         var studentStressLevels = [];
-        //create an array to replace most recent stress data
+        //create an array to replace most recent stress data--for the bar graph
         var mostRecentStressLevelArray = [
           { name: "stress-level-1", value: 0 },
           { name: "stress-level-2", value: 0 },
@@ -50,8 +52,9 @@ class singleClassPage extends React.Component {
           //now add each answer separately--don't have to keep students apart for this particular answer
           element.forEach(elem => {
             const date = moment(elem.dateSubmitted).format("DD MMM, YYYY");
+
             // console.log(date);
-            //creating the most recent stress data array
+            //creating the most recent stress data array--we take the most recent answer from each student and add it to both the stress level over time and bar graph arrays. Other elements are just added to the bar graph array
             if (i == element.length - 1) {
               console.log("we're in the if statement");
               console.log(elem.quizQuestions[0].value);
@@ -86,9 +89,13 @@ class singleClassPage extends React.Component {
           });
         });
         console.log("Student stress level array is" + studentStressLevels);
+        var useThisArrayForStressOverTime = getAverageScore(
+          studentStressLevels
+        );
+        console.log(useThisArrayForStressOverTime);
         this.setState({
           studentArray: data.studentNameArray,
-          stressLevelOverTimeArray: studentStressLevels,
+          stressLevelOverTimeArray: useThisArrayForStressOverTime,
           mostRecentStressLevel: mostRecentStressLevelArray
         });
         this.state.mostRecentStressLevel.forEach(info => {
@@ -111,7 +118,7 @@ class singleClassPage extends React.Component {
 
         <div>
           <LineChart
-            width={300}
+            width={1000}
             height={300}
             data={this.state.stressLevelOverTimeArray}
             margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
@@ -123,7 +130,7 @@ class singleClassPage extends React.Component {
             <Legend />
             <Line
               type="monotone"
-              dataKey="answer"
+              dataKey="average"
               stroke="#8884d8"
               activeDot={{ r: 8 }}
             />
