@@ -21,7 +21,8 @@ class singleClassPage extends React.Component {
       className: this.props.location.pathname.replace("/classes/", ""),
       studentArray: [],
       stressLevelOverTimeArray: [],
-      mostRecentStressLevel: []
+      mostRecentStressLevel: [],
+      mostStressedStudentArray: []
     };
   }
 
@@ -37,6 +38,7 @@ class singleClassPage extends React.Component {
         console.log(data);
         //this is the array that will make the line graph of average stress levels over time
         var studentStressLevels = [];
+        var mostStressedStudents = [];
         //create an array to replace most recent stress data--for the bar graph
         var mostRecentStressLevelArray = [
           { name: "stress-level-1", value: 0 },
@@ -74,6 +76,7 @@ class singleClassPage extends React.Component {
                 case "4":
                   console.log("we're in the case statement");
                   mostRecentStressLevelArray[3].value++;
+                  mostStressedStudents.push(elem.studentID);
                   break;
                 default:
                 // execute default code block
@@ -96,7 +99,8 @@ class singleClassPage extends React.Component {
         this.setState({
           studentArray: data.studentNameArray,
           stressLevelOverTimeArray: useThisArrayForStressOverTime,
-          mostRecentStressLevel: mostRecentStressLevelArray
+          mostRecentStressLevel: mostRecentStressLevelArray,
+          mostStressedStudentArray: mostStressedStudents
         });
         this.state.mostRecentStressLevel.forEach(info => {
           console.log(info.name + info.value);
@@ -150,6 +154,17 @@ class singleClassPage extends React.Component {
             <Legend />
             <Bar dataKey="value" fill="#8884d8" />
           </BarChart>
+
+          <div>
+            <h2>Students who reported high stress</h2>
+            <div>
+              {this.state.mostStressedStudentArray.map((item, i) => (
+                <li>
+                  <Link to={"/studentProfile/" + item}>{item}</Link>
+                </li>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     );

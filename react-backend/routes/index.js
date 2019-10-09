@@ -182,11 +182,29 @@ router.post("/learn/updateModulesCompleted", function(req, res, next) {
       data
     ) {
       data.modulesCompleted.push(req.body.module);
-      data.save(function(err) {
-        if (!err) {
-          console.log("successfully added module!");
-          res.json({
-            complete: "Completed!"
+      var counter = 1;
+      data.modulesAssigned.forEach(elem => {
+        if (elem.modules == req.body.module.name) {
+          data.modulesAssigned[counter - 1].completed = true;
+
+          console.log(data.modulesAssigned[counter - 1].completed);
+          console.log("changed a true-false completed statement");
+          counter++;
+        } else {
+          console.log("this is not a match");
+          counter++;
+        }
+        if (counter == data.modulesAssigned.length) {
+          data.save(function(err) {
+            if (!err) {
+              console.log("successfully added module!");
+
+              //TKTKTK
+
+              res.json({
+                complete: "Completed!"
+              });
+            }
           });
         }
       });
@@ -360,9 +378,6 @@ router.post("/createAssignment", function(req, res, next) {
       User.findOne({ username: element }, function(err, user) {
         user.modulesCompleted.forEach(elem => {
           console.log(elem);
-          if (elem == newAssignmentObject.moduleAssigned) {
-            newAssignmentObject.completed = true;
-          }
         });
 
         user.modulesAssigned.push(newAssignmentObject);
