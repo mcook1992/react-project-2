@@ -184,12 +184,12 @@ router.post("/learn/updateModulesCompleted", function(req, res, next) {
       // data.modulesCompleted.push(req.body.module);
 
       var counter = 0;
-      var replacementArray = [{ testobject: "newest test" }];
-
+      var replacementArray = [];
       data.modulesAssigned.forEach(elem => {
         if (elem.modules == req.body.module.name) {
           newElem = elem;
           newElem.completed = true;
+          newElem.dateCompleted = "New date here";
           replacementArray.push(newElem);
           counter++;
         } else {
@@ -199,6 +199,7 @@ router.post("/learn/updateModulesCompleted", function(req, res, next) {
 
         if (counter == data.modulesAssigned.length) {
           data.modulesAssigned = replacementArray;
+          data.markModified("modulesAssigned");
           data.save(function(err) {
             console.log("Saved data");
           });
