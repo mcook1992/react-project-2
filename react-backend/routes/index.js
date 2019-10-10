@@ -181,33 +181,70 @@ router.post("/learn/updateModulesCompleted", function(req, res, next) {
       err,
       data
     ) {
-      data.modulesCompleted.push(req.body.module);
-      var counter = 1;
+      // data.modulesCompleted.push(req.body.module);
+
+      var counter = 0;
+      var replacementArray = [{ testobject: "newest test" }];
+
       data.modulesAssigned.forEach(elem => {
         if (elem.modules == req.body.module.name) {
-          data.modulesAssigned[counter - 1].completed = true;
-
-          console.log(data.modulesAssigned[counter - 1].completed);
-          console.log("changed a true-false completed statement");
+          newElem = elem;
+          newElem.completed = true;
+          replacementArray.push(newElem);
           counter++;
         } else {
-          console.log("this is not a match");
+          replacementArray.push(elem);
           counter++;
         }
+
         if (counter == data.modulesAssigned.length) {
+          data.modulesAssigned = replacementArray;
           data.save(function(err) {
-            if (!err) {
-              console.log("successfully added module!");
-
-              //TKTKTK
-
-              res.json({
-                complete: "Completed!"
-              });
-            }
+            console.log("Saved data");
           });
         }
       });
+
+      // data.modulesAssigned.forEach(elem => {
+      //   if (elem.modules == req.body.module.name) {
+      //     elem.completed = true;
+      //     elem.dateCompleted = "Test Date Here";
+      //     console.log("new elem is" + elem);
+      //     replacementArray.push(elem);
+      //     counter++;
+      //     if (counter == data.modulesAssigned.length) {
+      //       console.log(
+      //         "The replacement array is" + replacementArray[0].modules
+      //       );
+      //       data.modulesAssigned = replacementArray;
+      //       data.save(function(err) {
+      //         if (!err) {
+      //           console.log("successfully added module!");
+      //           // res.json({
+      //           //   complete: "Completed!"
+      //           // });
+      //         }
+      //       });
+      //     }
+      //   } else {
+      //     replacementArray.push(elem);
+      //     counter++;
+      //     if (counter == data.modulesAssigned.length) {
+      //       console.log(
+      //         "The replacement array is" + replacementArray[0].modules
+      //       );
+      //       data.modulesAssigned = replacementArray;
+      //       data.save(function(err) {
+      //         if (!err) {
+      //           console.log("successfully added module!");
+      //           // res.json({
+      //           //   complete: "Completed!"
+      //           // });
+      //         }
+      //       });
+      //     }
+      //   }
+      // });
     });
   }
 });
