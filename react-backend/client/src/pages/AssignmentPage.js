@@ -6,6 +6,7 @@ class AssignmentPage extends React.Component {
     super(props);
     this.state = {
       nameOfAssignment: "",
+      otherModulesSelected: [],
       moduleSelected: "",
       classAssigned: "TestTeacher1-103",
       studentsAssigned: "",
@@ -53,6 +54,15 @@ class AssignmentPage extends React.Component {
     console.log(this.state);
   }
 
+  addNewModule(e) {
+    console.log(e.target.value);
+    newArray = this.state.otherModulesSelected;
+    newArray.push(e.target.value);
+    this.setState({
+      otherModulesSelected: newArray
+    });
+  }
+
   createAssignment(event) {
     event.preventDefault();
     if (this.state.moduleSelected && this.state.classAssigned) {
@@ -78,7 +88,7 @@ class AssignmentPage extends React.Component {
     return (
       <form onSubmit={this.createAssignment}>
         <label>
-          Which module would you like to assign?
+          Which mMdule would you like to assign?
           <br></br>
           <br></br>
           <select
