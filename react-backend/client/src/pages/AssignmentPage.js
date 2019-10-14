@@ -55,8 +55,8 @@ class AssignmentPage extends React.Component {
   }
 
   addNewModule(e) {
-    console.log(e.target.value);
-    newArray = this.state.otherModulesSelected;
+    console.log("the value is " + e.target.value);
+    var newArray = this.state.otherModulesSelected;
     newArray.push(e.target.value);
     this.setState({
       otherModulesSelected: newArray
