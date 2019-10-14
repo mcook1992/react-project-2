@@ -105,6 +105,7 @@ class AssignmentPage extends React.Component {
             })}
           </select>
         </label>
+        <button>Assign another module</button>
         <label>
           Which class would you like to assign it to?
           <br></br>
