@@ -13,7 +13,6 @@ class AssignmentPage extends React.Component {
       userName: "",
       classArray: ["TestTeacher1-103"],
       moduleArray: [
-        "",
         "Mental Health Introduction",
         "Dealing with Anxiety",
         "Stress busting"
@@ -23,6 +22,7 @@ class AssignmentPage extends React.Component {
     this.changeClassSelected = this.changeClassSelected.bind(this);
     this.changeModuleSelected = this.changeModuleSelected.bind(this);
     this.createAssignment = this.createAssignment.bind(this);
+    this.addNewModule = this.addNewModule.bind(this);
   }
 
   componentDidMount() {
@@ -62,6 +62,8 @@ class AssignmentPage extends React.Component {
       otherModulesSelected: newArray
     });
   }
+
+  addAnotherModuleField(e) {}
 
   createAssignment(event) {
     event.preventDefault();
@@ -105,10 +107,9 @@ class AssignmentPage extends React.Component {
             })}
           </select>
         </label>
-        <button>Assign another module</button>
+
         <label>
           Which class would you like to assign it to?
-          <br></br>
           <br></br>
           <select
             name="classAssigned"
@@ -124,6 +125,32 @@ class AssignmentPage extends React.Component {
             })}
           </select>
         </label>
+        {/* <label for="one">
+          <input type="checkbox" id="one" />
+          First checkbox
+        </label> */}
+
+        <label>
+          Which modules would you like to assign?
+          <br></br>
+          <br></br>
+        </label>
+
+        <div>
+          <select multiple>
+            {this.state.moduleArray.map((e, key) => {
+              return (
+                <option>
+                  <label for={e}>
+                    <input type="checkbox" id={e} />
+                    {e}
+                  </label>
+                </option>
+              );
+            })}
+          </select>
+        </div>
+
         <input
           className="submit btn btn-primary"
           type="submit"
