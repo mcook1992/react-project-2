@@ -1,8 +1,12 @@
 import React from "react";
+import Select from "react-select";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-import Select from "react-select";
-// import { CoolSelectList } from "../pages/newerTestMultiListComponent";
+import { CoolSelectList } from "./newerTestMultiListComponent";
+
+// import { CoolSelectList } from "./newerTestMultiListComponent";
+
+import { Welcome } from "./testExportClass";
 
 class AssignmentPage extends React.Component {
   constructor(props) {

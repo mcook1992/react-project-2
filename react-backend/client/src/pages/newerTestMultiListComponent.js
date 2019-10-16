@@ -34,10 +34,10 @@ class CoolSelectList extends React.Component {
       <Select
         defaultValue={this.props.options[1]}
         options={this.props.options}
-        formatGroupLabel={formatGroupLabel}
+        formatGroupLabel={this.props.format}
       />
     );
   }
 }
 
-export default { CoolSelectList };
+export default CoolSelectList;
