@@ -28,14 +28,16 @@ const formatGroupLabel = data => (
   </div>
 );
 
-function MultiSelectList(props) {
-  return (
-    <Select
-      defaultValue={this.props.options[1]}
-      options={this.props.options}
-      formatGroupLabel={formatGroupLabel}
-    />
-  );
+class CoolSelectList extends React.Component {
+  render() {
+    return (
+      <Select
+        defaultValue={this.props.options[1]}
+        options={this.props.options}
+        formatGroupLabel={formatGroupLabel}
+      />
+    );
+  }
 }
 
-export default MultiSelectList;
+export default { CoolSelectList };

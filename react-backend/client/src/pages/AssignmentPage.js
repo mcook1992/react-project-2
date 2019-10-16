@@ -1,5 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
+import Select from "react-select";
+// import { CoolSelectList } from "../pages/newerTestMultiListComponent";
 
 class AssignmentPage extends React.Component {
   constructor(props) {
@@ -136,20 +139,7 @@ class AssignmentPage extends React.Component {
           <br></br>
         </label>
 
-        <div>
-          <select multiple>
-            {this.state.moduleArray.map((e, key) => {
-              return (
-                <option>
-                  <label for={e}>
-                    <input type="checkbox" id={e} />
-                    {e}
-                  </label>
-                </option>
-              );
-            })}
-          </select>
-        </div>
+        {/* <CoolSelectList options={this.state.moduleArray} /> */}
 
         <input
           className="submit btn btn-primary"
