@@ -2,11 +2,13 @@ import React from "react";
 import Select from "react-select";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-import { CoolSelectList } from "./newerTestMultiListComponent";
+// import CoolSelectList from "../pages/newerTestMultiListComponent";
+import MyComponent from "../pages/newMenuTestPage";
 
 // import { CoolSelectList } from "./newerTestMultiListComponent";
 
 import { Welcome } from "./testExportClass";
+import CoolSelectList from "./newerTestMultiListComponent";
 
 class AssignmentPage extends React.Component {
   constructor(props) {
@@ -19,11 +21,7 @@ class AssignmentPage extends React.Component {
       studentsAssigned: "",
       userName: "",
       classArray: ["TestTeacher1-103"],
-      moduleArray: [
-        "Mental Health Introduction",
-        "Dealing with Anxiety",
-        "Stress busting"
-      ]
+      moduleArray: []
     };
 
     this.changeClassSelected = this.changeClassSelected.bind(this);
@@ -40,8 +38,14 @@ class AssignmentPage extends React.Component {
       .then(res => res.json())
       .then(data => {
         console.log(data);
+        const newModulesArray = [
+          { label: "Mental Health", value: "Mental Health Introduction" },
+          { label: "Mental Health", value: "Mental Health Introduction" },
+          { label: "Mental Health", value: "Mental Health Introduction" }
+        ];
         this.setState({
           username: data.username
+          // moduleArray: newModulesArray
         });
       });
   }
@@ -96,6 +100,9 @@ class AssignmentPage extends React.Component {
   render() {
     return (
       <form onSubmit={this.createAssignment}>
+        <MyComponent />
+        <CoolSelectList options={this.state.moduleArray} />
+
         <label>
           Which mMdule would you like to assign?
           <br></br>

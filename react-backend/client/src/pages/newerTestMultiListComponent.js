@@ -1,40 +1,21 @@
 import React from "react";
-import createClass from "create-react-class";
-import PropTypes from "prop-types";
+
 import Select from "react-select";
 
-const groupStyles = {
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "space-between"
-};
-const groupBadgeStyles = {
-  backgroundColor: "#EBECF0",
-  borderRadius: "2em",
-  color: "#172B4D",
-  display: "inline-block",
-  fontSize: 12,
-  fontWeight: "normal",
-  lineHeight: "1",
-  minWidth: 1,
-  padding: "0.16666666666667em 0.5em",
-  textAlign: "center"
-};
-
-const formatGroupLabel = data => (
-  <div style={groupStyles}>
-    <span>{data.label}</span>
-    <span style={groupBadgeStyles}>{data.options.length}</span>
-  </div>
-);
+const testArray = [
+  { value: "Mental Health 1", label: "Mental Health 1" },
+  { value: "Mental Health 2", label: "Mental Health 2" },
+  { value: "Mental Health 3", label: "Mental Health 3" }
+];
 
 class CoolSelectList extends React.Component {
-  render() {
+  render(props) {
     return (
       <Select
-        defaultValue={this.props.options[1]}
-        options={this.props.options}
-        formatGroupLabel={this.props.format}
+        defaultValue={testArray[1]}
+        options={testArray}
+        isMulti
+        // formatGroupLabel={this.props.format}
       />
     );
   }
