@@ -12,9 +12,12 @@ class CoolSelectList extends React.Component {
   render(props) {
     return (
       <Select
-        defaultValue={testArray[1]}
-        options={testArray}
+        defaultValue={this.props.options[0]}
+        options={this.props.options}
         isMulti
+        className="basic-multi-select"
+        classNamePrefix="select"
+        onChange={this.props.onChange}
         // formatGroupLabel={this.props.format}
       />
     );

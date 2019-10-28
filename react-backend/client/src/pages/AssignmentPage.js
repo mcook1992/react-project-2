@@ -3,12 +3,14 @@ import Select from "react-select";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 // import CoolSelectList from "../pages/newerTestMultiListComponent";
-import MyComponent from "../pages/newMenuTestPage";
+// import MyComponent from "../pages/newMenuTestPage";
 
 // import { CoolSelectList } from "./newerTestMultiListComponent";
 
 import { Welcome } from "./testExportClass";
 import CoolSelectList from "./newerTestMultiListComponent";
+
+const newModulesArray = [];
 
 class AssignmentPage extends React.Component {
   constructor(props) {
@@ -16,7 +18,7 @@ class AssignmentPage extends React.Component {
     this.state = {
       nameOfAssignment: "",
       otherModulesSelected: [],
-      moduleSelected: "",
+      moduleSelected: [],
       classAssigned: "TestTeacher1-103",
       studentsAssigned: "",
       userName: "",
@@ -26,6 +28,7 @@ class AssignmentPage extends React.Component {
 
     this.changeClassSelected = this.changeClassSelected.bind(this);
     this.changeModuleSelected = this.changeModuleSelected.bind(this);
+    this.changeModulesSelected = this.changeModulesSelected.bind(this);
     this.createAssignment = this.createAssignment.bind(this);
     this.addNewModule = this.addNewModule.bind(this);
   }
@@ -38,22 +41,30 @@ class AssignmentPage extends React.Component {
       .then(res => res.json())
       .then(data => {
         console.log(data);
-        const newModulesArray = [
-          { label: "Mental Health", value: "Mental Health Introduction" },
-          { label: "Mental Health", value: "Mental Health Introduction" },
-          { label: "Mental Health", value: "Mental Health Introduction" }
+        newModulesArray = [
+          { label: "Mental Health", value: "Mental Health Introduction 1" },
+          { label: "Mental Health", value: "Mental Health Introduction 2" },
+          { label: "Mental Health", value: "Mental Health Introduction 3" }
         ];
         this.setState({
           username: data.username
-          // moduleArray: newModulesArray
         });
       });
   }
 
   changeModuleSelected(e) {
+    console.log("We're logging something when things change");
     console.log(e.target.value);
     this.setState({
       moduleSelected: e.target.value
+    });
+  }
+
+  changeModulesSelected(options) {
+    console.log("We're logging something when things change");
+    console.log(options);
+    this.setState({
+      moduleSelected: options
     });
   }
 
@@ -73,8 +84,6 @@ class AssignmentPage extends React.Component {
       otherModulesSelected: newArray
     });
   }
-
-  addAnotherModuleField(e) {}
 
   createAssignment(event) {
     event.preventDefault();
@@ -98,10 +107,32 @@ class AssignmentPage extends React.Component {
   }
 
   render() {
+    function changeModuleSelected(e) {
+      console.log("We're logging something when things change");
+      console.log(e.target.value);
+      // this.setState({
+      //   moduleSelected: e.target.value
+      // });
+    }
+    const moduleOptions = [
+      { label: "Mental Health 1", value: "Mental Health Introduction 1" },
+      { label: "Mental Health 2", value: "Mental Health Introduction 2" },
+      { label: "Mental Health 3", value: "Mental Health Introduction 3" }
+    ];
+
+    const SelectOption = this.state.moduleSelected;
+
     return (
       <form onSubmit={this.createAssignment}>
-        <MyComponent />
-        <CoolSelectList options={this.state.moduleArray} />
+        {/* <MyComponent /> */}
+        <CoolSelectList
+          // name="ModulesSelected"
+          name="ModuleSelector"
+          placeholder="Select a module"
+          options={moduleOptions}
+          value={SelectOption}
+          onChange={this.changeModulesSelected}
+        />
 
         <label>
           Which mMdule would you like to assign?

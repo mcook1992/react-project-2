@@ -400,39 +400,48 @@ router.get("/studentProfiles/:name", function(req, res, next) {
 router.post("/createAssignment", function(req, res, next) {
   console.log("registering the create assignments request");
 
-  console.log(
-    req.body.username + req.body.classAssigned + req.body.moduleAssigned
-  );
+  console.log(req.body.moduleAssigned);
 
-  var newAssignmentObject = {
-    modules: req.body.moduleAssigned,
-    completed: false
-  };
+  //tktktk test tomorrow
 
-  Group.findOne({ name: req.body.classAssigned }, function(err, group) {
-    console.log(group.teacherNames[0]);
-    group.studentNames.forEach(element => {
-      console.log(element);
-      User.findOne({ username: element }, function(err, user) {
-        user.modulesCompleted.forEach(elem => {
-          console.log(elem);
+  req.body.moduleAssigned.forEach(element => {
+    var newAssignmentObject = {
+      modules: element.label,
+      completed: false
+    };
+
+    var counter = 0;
+    console.log(newAssignmentObject);
+
+    Group.findOne({ name: req.body.classAssigned }, function(err, group) {
+      console.log(group.teacherNames[0]);
+      group.studentNames.forEach(element => {
+        console.log(element);
+        User.findOne({ username: element }, function(err, user) {
+          user.modulesCompleted.forEach(elem => {
+            console.log(elem);
+          });
+
+          user.modulesAssigned.push(newAssignmentObject);
+          user.save(function(err) {
+            if (!err) {
+              console.log(
+                "successfully saved assignment to user " + user.username
+              );
+            }
+          });
+          console.log(user.username);
+          counter++;
         });
-
-        user.modulesAssigned.push(newAssignmentObject);
-        user.save(function(err) {
-          if (!err) {
-            console.log(
-              "successfully saved assignment to user " + user.username
-            );
-          }
-        });
-        console.log(user.username);
       });
     });
-    res.json({
-      usersUpdated: group.studentNames
-    });
   });
+
+  if (counter == req.body.moduleAssigned.length)
+    res.json({
+      usersUpdated: ["complete", "complete"]
+    });
+  //tktktk insert extra
 });
 
 module.exports = router;
