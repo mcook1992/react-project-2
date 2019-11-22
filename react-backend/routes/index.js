@@ -419,7 +419,7 @@ router.post("/createAssignment", function(req, res, next) {
         console.log(element);
         User.findOne({ username: element }, function(err, user) {
           user.modulesCompleted.forEach(elem => {
-            console.log(elem);
+            // console.log(elem);
           });
 
           user.modulesAssigned.push(newAssignmentObject);
