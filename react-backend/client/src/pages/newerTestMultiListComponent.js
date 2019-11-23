@@ -12,7 +12,6 @@ class CoolSelectList extends React.Component {
   render(props) {
     return (
       <Select
-        defaultValue={this.props.options[0]}
         options={this.props.options}
         isMulti
         className="basic-multi-select"

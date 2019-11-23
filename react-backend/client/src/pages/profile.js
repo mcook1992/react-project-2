@@ -49,7 +49,7 @@ class Profile extends React.Component {
           pastSurveyData: data.data,
           modulesCompleted: data.modules,
           stressLevelArray: stressLevelArray,
-          assignments: data.assignments
+          assignments: data.assignments //think something is wrong here--looking into the database, the modules is one more in
         });
 
         console.log(this.state.assignments);

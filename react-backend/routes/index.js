@@ -401,17 +401,18 @@ router.post("/createAssignment", function(req, res, next) {
   console.log("registering the create assignments request");
 
   console.log(req.body.moduleAssigned);
+  var counter = 0;
 
   //tktktk test tomorrow
 
   req.body.moduleAssigned.forEach(element => {
+    console.log("The element is " + element.label);
     var newAssignmentObject = {
       modules: element.label,
       completed: false
     };
 
-    var counter = 0;
-    console.log(newAssignmentObject);
+    console.log("the new assignment object is " + newAssignmentObject);
 
     Group.findOne({ name: req.body.classAssigned }, function(err, group) {
       console.log(group.teacherNames[0]);
