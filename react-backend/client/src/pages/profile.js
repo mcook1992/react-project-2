@@ -10,7 +10,7 @@ import {
 } from "recharts";
 
 import ModuleButton from "../components/module-button";
-//figure out teacher vs. student profile still haven
+//figure out teacher vs. student profile still haven't updated yet
 class Profile extends React.Component {
   constructor(props) {
     super(props);
