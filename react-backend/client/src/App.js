@@ -58,11 +58,7 @@ class App extends Component {
               path="/classes/:classname"
               component={singleClassPage}
             />
-            <Route
-              exact
-              path="/studentProfile/"
-              component={studentProfilePage}
-            />
+            <Route path="/studentProfile/" component={studentProfilePage} />
 
             {/* <Route exact path="/blog" component={Blog} />
             <Route path="/contact" component={Contact} /> */}
