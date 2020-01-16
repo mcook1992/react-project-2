@@ -17,6 +17,7 @@ class studentProfilePage extends React.Component {
     // console.log("button clicked!");
     const id = event.target;
     const access = event.target.parentElement.id;
+    const parentElement = event.target.parentElement;
     const name = event.target.name;
     var activated = event.target.parentElement.className;
     console.log("The element is current " + activated);
@@ -52,10 +53,17 @@ class studentProfilePage extends React.Component {
           console.log(questionArray[0] + " " + answerArray[0]);
 
           console.log(newElem);
+          parentElement.classList.add("activated");
+          parentElement.classList.remove("not-activated");
 
           // newElem[0].innerText = "haha ha got it!";
           // document.getElementsByClassName(access).text = "hahaha got it!";
         } else {
+          var replacementElement = document.createElement("P");
+          replacementElement.classList.add(access);
+          newElem[0].replaceWith(replacementElement);
+          parentElement.classList.add("not-activated");
+          parentElement.classList.remove("activated");
         }
       });
   }

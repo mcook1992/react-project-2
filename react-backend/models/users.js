@@ -9,6 +9,7 @@ var userSchema = new Schema({
   dateCreated: { type: Date, default: Date.now() },
   accountType: String,
   modulesAssigned: [],
+  assignmentsGiven: [], //use this to track teacher assignments
   modulesCompleted: [],
   classNames: []
 });
