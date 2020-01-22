@@ -19,7 +19,8 @@ router.get("/isAuthenticated", function(req, res, next) {
     console.log(req.session.passport + req.user);
     res.json({
       isAuthenticated: true,
-      username: req.session.passport.user.username
+      username: req.session.passport.user.username,
+      accountType: req.user.userna
     });
   }
 });

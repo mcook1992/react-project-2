@@ -10,7 +10,7 @@ import PropTypes from "prop-types";
 import { Welcome } from "./testExportClass";
 import CoolSelectList from "./newerTestMultiListComponent";
 
-const newModulesArray = [];
+var newModulesArray = [];
 
 class AssignmentPage extends React.Component {
   constructor(props) {
@@ -23,7 +23,9 @@ class AssignmentPage extends React.Component {
       studentsAssigned: "",
       userName: "",
       classArray: ["TestTeacher1-103"],
-      moduleArray: []
+      moduleArray: [],
+      accountType: "Neither",
+      currentClasses: []
     };
 
     this.changeClassSelected = this.changeClassSelected.bind(this);
@@ -41,13 +43,27 @@ class AssignmentPage extends React.Component {
       .then(res => res.json())
       .then(data => {
         console.log(data);
-        newModulesArray = [
-          { label: "Mental Health", value: "Mental Health Introduction 1" },
-          { label: "Mental Health", value: "Mental Health Introduction 2" },
-          { label: "Mental Health", value: "Mental Health Introduction 3" }
-        ];
+        // newModulesArray = [
+        //   { label: "Mental Health", value: "Mental Health Introduction 1" },
+        //   { label: "Mental Health", value: "Mental Health Introduction 2" },
+        //   { label: "Mental Health", value: "Mental Health Introduction 3" }
+        // ];
         this.setState({
-          username: data.username
+          username: data.username,
+          accountType: data.accountType
+        });
+      });
+
+    fetch("/addClasses")
+      .then(res => res.json())
+      .then(data => {
+        console.log(data);
+        const classesNumber = data.currentClasses.length + 100;
+        this.setState({
+          accountType: data.accountType,
+          currentClasses: data.currentClasses
+          // username: data.user,
+          // currentNumberOfClasses: classesNumber
         });
       });
   }
@@ -122,19 +138,20 @@ class AssignmentPage extends React.Component {
 
     const SelectOption = this.state.moduleSelected;
 
-    return (
-      <form onSubmit={this.createAssignment}>
-        {/* <MyComponent /> */}
-        <CoolSelectList
-          // name="ModulesSelected"
-          name="ModuleSelector"
-          placeholder="Select a module"
-          options={moduleOptions}
-          value={SelectOption}
-          onChange={this.changeModulesSelected}
-        />
+    if (this.state.accountType == "Teacher") {
+      return (
+        <form onSubmit={this.createAssignment}>
+          {/* <MyComponent /> */}
+          <CoolSelectList
+            // name="ModulesSelected"
+            name="ModuleSelector"
+            placeholder="Select a module"
+            options={moduleOptions}
+            value={SelectOption}
+            onChange={this.changeModulesSelected}
+          />
 
-        <label>
+          {/* <label>
           Which mMdule would you like to assign?
           <br></br>
           <br></br>
@@ -151,45 +168,50 @@ class AssignmentPage extends React.Component {
               );
             })}
           </select>
-        </label>
+        </label> */}
 
-        <label>
-          Which class would you like to assign it to?
-          <br></br>
-          <select
-            name="classAssigned"
-            value={this.state.classAssigned}
-            onChange={this.changeClassSelected}
-          >
-            {this.state.classArray.map((e, key) => {
-              return (
-                <option key={key} value={e}>
-                  {e}
-                </option>
-              );
-            })}
-          </select>
-        </label>
-        {/* <label for="one">
+          <label>
+            Which class would you like to assign it to?
+            <br></br>
+            <select
+              name="classAssigned"
+              value={this.state.classAssigned}
+              onChange={this.changeClassSelected}
+            >
+              {this.state.currentClasses.map((e, key) => {
+                return (
+                  <option key={key} value={e}>
+                    {e}
+                  </option>
+                );
+              })}
+            </select>
+          </label>
+          {/* <label for="one">
           <input type="checkbox" id="one" />
           First checkbox
         </label> */}
 
-        <label>
+          {/* <label>
           Which modules would you like to assign?
           <br></br>
           <br></br>
-        </label>
+        </label> */}
 
-        {/* <CoolSelectList options={this.state.moduleArray} /> */}
+          {/* <CoolSelectList options={this.state.moduleArray} /> */}
 
-        <input
-          className="submit btn btn-primary"
-          type="submit"
-          value="Create Assignment!"
-        />
-      </form>
-    );
+          <input
+            className="submit btn btn-primary"
+            type="submit"
+            value="Create Assignment!"
+          />
+        </form>
+      );
+    } else {
+      return (
+        <h3>We're sorry, you don't have permission to access this page</h3>
+      );
+    }
   }
 }
 
