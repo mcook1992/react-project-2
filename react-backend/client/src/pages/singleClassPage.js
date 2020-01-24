@@ -10,9 +10,17 @@ import {
   Legend
 } from "recharts";
 import { BarChart, Bar } from "recharts";
+import { BootstrapTable, TableHeaderColumn } from "react-bootstrap-table";
+import Table1 from "../components/gradebook";
 import Moment from "moment";
 import moment from "moment";
 import { getAverageScore } from "../getting-daily-average";
+
+var data = [
+  { id: 1, name: "Gob", value: "2" },
+  { id: 2, name: "Buster", value: "5" },
+  { id: 3, name: "George Michael", value: "4" }
+];
 
 class singleClassPage extends React.Component {
   constructor(props) {
@@ -164,6 +172,10 @@ class singleClassPage extends React.Component {
                 </li>
               ))}
             </div>
+          </div>
+
+          <div>
+            <Table1 data={data} />
           </div>
         </div>
       </div>
