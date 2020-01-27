@@ -30,7 +30,8 @@ class singleClassPage extends React.Component {
       studentArray: [],
       stressLevelOverTimeArray: [],
       mostRecentStressLevel: [],
-      mostStressedStudentArray: []
+      mostStressedStudentArray: [],
+      assignmentsGivenArray: []
     };
   }
 
@@ -108,7 +109,8 @@ class singleClassPage extends React.Component {
           studentArray: data.studentNameArray,
           stressLevelOverTimeArray: useThisArrayForStressOverTime,
           mostRecentStressLevel: mostRecentStressLevelArray,
-          mostStressedStudentArray: mostStressedStudents
+          mostStressedStudentArray: mostStressedStudents,
+          assignmentsGivenArray: data.assignmentsGiven
         });
         this.state.mostRecentStressLevel.forEach(info => {
           console.log(info.name + info.value);

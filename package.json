@@ -27,6 +27,7 @@
     "cookie-parser": "^1.4.4",
     "dotenv": "^8.0.0",
     "express-session": "^1.16.2",
+    "mdbreact": "^4.25.0",
     "moment": "^2.24.0",
     "mongoose": "^5.5.13",
     "passport": "^0.4.0",

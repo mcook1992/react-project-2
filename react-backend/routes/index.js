@@ -358,7 +358,8 @@ router.get("/displayClass/:classname", function(req, res, next) {
               if (counter == length) {
                 res.json({
                   studentNameArray: data.studentNames,
-                  data: studentInfo
+                  data: studentInfo,
+                  assignmentsGiven: data.assignmentsGiven
                 });
               }
             } else {

@@ -7,7 +7,8 @@ var groupSchema = new Schema({
   name: String,
   dateCreated: { type: Date, default: Date.now() },
   studentNames: [],
-  teacherNames: []
+  teacherNames: [],
+  assignmentsGiven: []
 });
 
 // Compile model from schema
