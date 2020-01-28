@@ -400,6 +400,7 @@ router.get("/studentProfiles/:name", function(req, res, next) {
 });
 
 router.post("/createAssignment", function(req, res, next) {
+  //TKTKTK--work on assignment stuff here
   console.log("registering the create assignments request");
 
   console.log(req.body.moduleAssigned);
