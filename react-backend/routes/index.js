@@ -174,6 +174,7 @@ router.get("/profile", function(req, res, next) {
   }
 });
 
+//TKTKT also add here so that when student completes module, it updates on the assignments given portion
 router.post("/learn/updateModulesCompleted", function(req, res, next) {
   console.log("registering this quiz request");
   console.log(req.body.module);
@@ -400,7 +401,7 @@ router.get("/studentProfiles/:name", function(req, res, next) {
 });
 
 router.post("/createAssignment", function(req, res, next) {
-  //TKTKTK--work on assignment stuff here
+  //TKTKTK--work on assignment stuff here--still haven't done it
   console.log("registering the create assignments request");
 
   console.log(req.body.moduleAssigned);
