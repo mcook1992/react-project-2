@@ -187,18 +187,34 @@ router.post("/learn/updateModulesCompleted", function(req, res, next) {
 
       var counter = 0;
       var replacementArray = [];
+
+      //searching through their assignment modules--if they already completed the module, update the date
       data.modulesAssigned.forEach(elem => {
         if (elem.modules == req.body.module.name) {
           newElem = elem;
           newElem.completed = true;
-          newElem.dateCompleted = "New date here";
+          newElem.dateCompleted = "New date here"; //need to update the real date here TKTK
           replacementArray.push(newElem);
           counter++;
+          //go through all their classes and adjust the same module in all their classes as necessary
+          data.classNames.forEach(className => {
+            //go through each assignment in that class
+            className.assignmentsGiven.forEach(assignment => {
+              //if one of their classes has an assignment named the same as the one the student just completed, add the students name to the "completed" array TKTK test tomorrow
+              if (assignment.name == req.body.module.name) {
+                assignment.completed.push(data.username);
+                assignment.save(function(err) {
+                  console.log("updated students who completed the assignment");
+                });
+              }
+            });
+          });
         } else {
           replacementArray.push(elem);
           counter++;
         }
 
+        //replace the old array of completeed assignments with the new, updated array (this feels like a lng way to do that)
         if (counter == data.modulesAssigned.length) {
           data.modulesAssigned = replacementArray;
           data.markModified("modulesAssigned");
