@@ -196,17 +196,37 @@ router.post("/learn/updateModulesCompleted", function(req, res, next) {
           newElem.dateCompleted = "New date here"; //need to update the real date here TKTK
           replacementArray.push(newElem);
           counter++;
+
+          console.log(data.classNames);
           //go through all their classes and adjust the same module in all their classes as necessary
           data.classNames.forEach(className => {
             //go through each assignment in that class
-            className.assignmentsGiven.forEach(assignment => {
-              //if one of their classes has an assignment named the same as the one the student just completed, add the students name to the "completed" array TKTK test tomorrow
-              if (assignment.name == req.body.module.name) {
-                assignment.completed.push(data.username);
-                assignment.save(function(err) {
-                  console.log("updated students who completed the assignment");
-                });
-              }
+            console.log(
+              "We're searching the assignmentsGiven in this class " + className
+            );
+            //match the
+            Group.findOne({ name: className }, function(error, thisClass) {
+              //search the specific classes "assignmentsGiven" array
+              thisClass.assignmentsGiven.forEach(assignment => {
+                //if one of their classes has an assignment named the same as the one the student just completed, add the students name to the "completed" array TKTK test tomorrow
+                var newModuleCompletedArray = [];
+                if (assignment.name == req.body.module.name) {
+                  console.log("We found an assignment that matches!");
+
+                  newModuleCompletedArray = assignment.completed;
+                  newModuleCompletedArray.push(data.username);
+
+                  assignment.completed = newModuleCompletedArray;
+
+                  data.markModified("assignmentsGiven");
+                  //updating the assignment
+                  thisClass.save(function(err) {
+                    console.log(
+                      "updated students who completed the assignment"
+                    );
+                  });
+                }
+              });
             });
           });
         } else {
