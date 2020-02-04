@@ -205,29 +205,47 @@ router.post("/learn/updateModulesCompleted", function(req, res, next) {
               "We're searching the assignmentsGiven in this class " + className
             );
             //match the
-            Group.findOne({ name: className }, function(error, thisClass) {
-              //search the specific classes "assignmentsGiven" array
-              thisClass.assignmentsGiven.forEach(assignment => {
-                //if one of their classes has an assignment named the same as the one the student just completed, add the students name to the "completed" array TKTK test tomorrow
-                var newModuleCompletedArray = [];
-                if (assignment.name == req.body.module.name) {
-                  console.log("We found an assignment that matches!");
+            Group.findOneAndUpdate(
+              {
+                name: className,
+                "assignmentsGiven.name": req.body.module.name
+              },
+              { $push: { "assignmentsGiven.$.completed": data.username } },
+              function(err) {
+                console.log("Something updated! Check the database!");
+              }
+            );
 
-                  newModuleCompletedArray = assignment.completed;
-                  newModuleCompletedArray.push(data.username);
+            // ({ name: className }, function(error, thisClass) {
+            //   //search the specific classes "assignmentsGiven" array
+            //   thisClass.assignmentsGiven.forEach(assignment => {
+            //     //if one of their classes has an assignment named the same as the one the student just completed, add the students name to the "completed" array TKTK test tomorrow
+            //     var newModuleCompletedArray = [];
+            //     if (assignment.name == req.body.module.name) {
+            //       console.log("We found an assignment that matches!");
 
-                  assignment.completed = newModuleCompletedArray;
+            //       newModuleCompletedArray = assignment.completed;
 
-                  data.markModified("assignmentsGiven");
-                  //updating the assignment
-                  thisClass.save(function(err) {
-                    console.log(
-                      "updated students who completed the assignment"
-                    );
-                  });
-                }
-              });
-            });
+            //       newModuleCompletedArray.push(data.username);
+            //       newModuleCompletedArray.push(data.username);
+
+            //       assignment.completed = newModuleCompletedArray;
+
+            //       console.log(
+            //         "The new assignment array is " + assignment.completed
+            //       );
+
+            //       // data.markModified("assignmentsGiven");
+            //       //updating the assignment
+            //       thisClass.save(function(err) {
+            //         console.log(
+            //           "updated students who completed the assignment " +
+            //             thisClass.assignmentsGiven[0].completed
+            //         );
+            //       });
+            //     }
+            //   });
+            // });
           });
         } else {
           replacementArray.push(elem);
