@@ -183,7 +183,7 @@ router.post("/learn/updateModulesCompleted", function(req, res, next) {
       err,
       data
     ) {
-      // data.modulesCompleted.push(req.body.module);
+      data.modulesCompleted.push(req.body.module);
 
       var counter = 0;
       var replacementArray = [];
@@ -215,37 +215,6 @@ router.post("/learn/updateModulesCompleted", function(req, res, next) {
                 console.log("Something updated! Check the database!");
               }
             );
-
-            // ({ name: className }, function(error, thisClass) {
-            //   //search the specific classes "assignmentsGiven" array
-            //   thisClass.assignmentsGiven.forEach(assignment => {
-            //     //if one of their classes has an assignment named the same as the one the student just completed, add the students name to the "completed" array TKTK test tomorrow
-            //     var newModuleCompletedArray = [];
-            //     if (assignment.name == req.body.module.name) {
-            //       console.log("We found an assignment that matches!");
-
-            //       newModuleCompletedArray = assignment.completed;
-
-            //       newModuleCompletedArray.push(data.username);
-            //       newModuleCompletedArray.push(data.username);
-
-            //       assignment.completed = newModuleCompletedArray;
-
-            //       console.log(
-            //         "The new assignment array is " + assignment.completed
-            //       );
-
-            //       // data.markModified("assignmentsGiven");
-            //       //updating the assignment
-            //       thisClass.save(function(err) {
-            //         console.log(
-            //           "updated students who completed the assignment " +
-            //             thisClass.assignmentsGiven[0].completed
-            //         );
-            //       });
-            //     }
-            //   });
-            // });
           });
         } else {
           replacementArray.push(elem);
@@ -455,30 +424,31 @@ router.get("/studentProfiles/:name", function(req, res, next) {
 });
 
 router.post("/createAssignment", function(req, res, next) {
-  //TKTKTK--work on assignment stuff here--still haven't done it
   console.log("registering the create assignments request");
 
   console.log(req.body.moduleAssigned);
   var counter = 0;
 
-  //tktktk test tomorrow
-
-  req.body.moduleAssigned.forEach(element => {
-    console.log("The element is " + element.label);
-    var newAssignmentObject = {
-      modules: element.label,
-      completed: false
-    };
-
-    console.log("the new assignment object is " + newAssignmentObject);
+  req.body.moduleAssigned.forEach(elem => {
+    console.log("The element is " + elem.label);
 
     Group.findOne({ name: req.body.classAssigned }, function(err, group) {
       console.log(group.teacherNames[0]);
       group.studentNames.forEach(element => {
         console.log(element);
+        //for reach student, check if the completed thing should be true or false
+        var newAssignmentObject = {
+          modules: elem.label,
+          completed: false
+        };
         User.findOne({ username: element }, function(err, user) {
-          user.modulesCompleted.forEach(elem => {
-            // console.log(elem);
+          user.modulesCompleted.forEach(mod => {
+            if (mod.name == elem.label) {
+              newAssignmentObject.completed = true;
+              console.log(
+                "student had already completed this assignment " + element
+              );
+            }
           });
 
           user.modulesAssigned.push(newAssignmentObject);
