@@ -429,6 +429,8 @@ router.post("/createAssignment", function(req, res, next) {
   console.log(req.body.moduleAssigned);
   var counter = 0;
 
+  //TKTKTK
+
   req.body.moduleAssigned.forEach(elem => {
     console.log("The element is " + elem.label);
 
