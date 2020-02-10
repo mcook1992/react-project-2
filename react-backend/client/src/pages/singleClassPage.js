@@ -108,10 +108,22 @@ class singleClassPage extends React.Component {
         console.log(useThisArrayForStressOverTime);
 
         //figure out which modules should be recommended
-        var newRecommendedAssignments = [
-          "Mental Health Intro Part 1",
-          "Dealing with Anxiety"
-        ];
+        var newRecommendedAssignments = ["Mental Health Intro Part 1"];
+
+        //if certain stress conditions are met, if so, add more modules (later, we check to see whether those modules have already been completed. Eventually, use a splice so only three modules are displayed)
+        var stressArrayCheckedForModules = false;
+
+        useThisArrayForStressOverTime.forEach(stressArrayElem => {
+          console.log("value of the answer is " + stressArrayElem.value); //tktktk
+          if (
+            stressArrayElem.value > 2 &&
+            stressArrayCheckedForModules == false
+          ) {
+            newRecommendedAssignments.push("Dealing with Stress");
+
+            stressArrayCheckedForModules = true;
+          }
+        });
         //go through assignments given and see if they've already done recommended assignments.
         data.assignmentsGiven.forEach(diffAssignment => {
           console.log("Different assignment is " + diffAssignment.name);
