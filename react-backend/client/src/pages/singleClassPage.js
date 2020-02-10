@@ -31,7 +31,8 @@ class singleClassPage extends React.Component {
       stressLevelOverTimeArray: [],
       mostRecentStressLevel: [],
       mostStressedStudentArray: [],
-      assignmentsGivenArray: []
+      assignmentsGivenArray: [],
+      recommendedAssignments: ["Test", "Test 2"]
     };
   }
 
@@ -105,13 +106,45 @@ class singleClassPage extends React.Component {
           studentStressLevels
         );
         console.log(useThisArrayForStressOverTime);
+
+        //figure out which modules should be recommended
+        var newRecommendedAssignments = [
+          "Mental Health Intro Part 1",
+          "Dealing with Anxiety"
+        ];
+        //go through assignments given and see if they've already done recommended assignments.
+        data.assignmentsGiven.forEach(diffAssignment => {
+          console.log("Different assignment is " + diffAssignment.name);
+          //now go through each thing in the recommended assignments
+          newRecommendedAssignments.forEach(currentlyRecommendedAssignment => {
+            console.log(
+              "if " +
+                diffAssignment.name +
+                " == " +
+                currentlyRecommendedAssignment
+            );
+            if (diffAssignment.name == currentlyRecommendedAssignment) {
+              newRecommendedAssignments = newRecommendedAssignments.filter(
+                el => el !== currentlyRecommendedAssignment
+              );
+              console.log(
+                "new recommended assignment array is " +
+                  newRecommendedAssignments
+              );
+              //tktktk
+            }
+          });
+        });
+
         this.setState({
           studentArray: data.studentNameArray,
           stressLevelOverTimeArray: useThisArrayForStressOverTime,
           mostRecentStressLevel: mostRecentStressLevelArray,
           mostStressedStudentArray: mostStressedStudents,
-          assignmentsGivenArray: data.assignmentsGiven
+          assignmentsGivenArray: data.assignmentsGiven,
+          recommendedAssignments: newRecommendedAssignments
         });
+        console.log(this.state.recommendedAssignments);
         this.state.mostRecentStressLevel.forEach(info => {
           console.log(info.name + info.value);
         });
@@ -178,6 +211,19 @@ class singleClassPage extends React.Component {
 
           <div>
             <Table1 data={data} />
+          </div>
+
+          <div>
+            <h3>Recommended Modules</h3>
+            <h5>
+              Based on your students stress data, we recomend the following
+              modules
+            </h5>
+            <div>
+              {this.state.recommendedAssignments.map((item, i) => (
+                <li>{item}</li>
+              ))}
+            </div>
           </div>
         </div>
       </div>
