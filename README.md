@@ -16,6 +16,11 @@ In the following gif, you can see a student taking a quick, lightweight quiz to 
 
 In this gif, you will see the teacher data page. Based on data gathered from students, the teacher data page will both inform teachers of how their students are feeling, signal out any students who might require extra attention, and recommend educational modules that would benefit the class. 
 
+
+<br>
+<br>
+<br>
+
 ![alt text](react-backend/videos/Sample_Teacher_Class_Data_Page.gif)
 
 
