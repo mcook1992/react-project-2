@@ -173,7 +173,7 @@ class singleClassPage extends React.Component {
             </li>
           ))}
         </div>
-        <h2>Class Data</h2>
+        <h2>Stress Data Over Time</h2>
 
         <div>
           <LineChart
@@ -195,6 +195,8 @@ class singleClassPage extends React.Component {
             />
             {/* <Line type="monotone" dataKey="uv" stroke="#82ca9d" /> */}
           </LineChart>
+
+          <h2>Most Recent Student Stress Reports</h2>
 
           <BarChart
             width={600}
@@ -219,9 +221,12 @@ class singleClassPage extends React.Component {
                 </li>
               ))}
             </div>
+            <br></br>
+            <br></br>
           </div>
 
           <div>
+            <h2>Assignments Completed by Students</h2>
             <Table1 data={data} />
           </div>
 
@@ -229,13 +234,15 @@ class singleClassPage extends React.Component {
             <h3>Recommended Modules</h3>
             <h5>
               Based on your students stress data, we recomend the following
-              modules
+              modules:
             </h5>
             <div>
               {this.state.recommendedAssignments.map((item, i) => (
-                <li>{item}</li>
+                <h4>{item}</h4>
               ))}
             </div>
+            <br></br>
+            <br></br>
           </div>
         </div>
       </div>
