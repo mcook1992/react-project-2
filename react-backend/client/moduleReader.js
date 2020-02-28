@@ -1,39 +1,31 @@
-class studentProfilePage extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      studentName: this.props.location.pathname.replace("/studentProfile/", ""),
-      modulesCompleted: [],
-      pastSurveyData: []
-    };
+export function readModule(object) {
+  var Name = object.Name;
+  var quesstions = object.questions;
+  var newModule = document.createElement("div");
 
-    this.handleModuleClick = this.handleModuleClick.bind(this);
-  }
-
-  handleModuleClick(event) {
-    event.preventDefault();
-    // console.log("button clicked!");
-  }
-
-  componentDidMount() {
-    fetch("/studentProfiles/" + this.state.studentName)
-      .then(res => res.json())
-      .then(data => {
-        console.log(data);
-        var tempArray = [];
-        data.modules.forEach(element => {
-          tempArray.push(element.name);
-        });
-        this.setState({
-          modulesCompleted: tempArray,
-          pastSurveyData: data.data
-        });
-        console.log("Modules completed are " + this.state.modulesCompleted);
+  //go through each element in the list of questions made
+  questions.forEach(element => {
+    //if the teacher has marked the multiple choice question type
+    if (element.questionType == "MC") {
+      var newQuestion = document.createElement("select");
+      newQuestion.id = element.id;
+      var newQuestionLabel = document.createElement("h4");
+      newQuestionLabel.textContent = element.questionText;
+      //go through each of the potential answers the teacher listed and add them
+      element.potentialQuestionAnswers.forEach(answer => {
+        var option = document.createElement("option");
+        option.value = answer;
+        option.textContent = answer;
+        newQuestion.appendChild(option);
       });
-  }
-
-  render() {
-    return <h1>Testing</h1>;
-  }
+      newModule.appendChild(newQuestionLabel);
+      newModule.appendChild(newQuestion);
+    } else {
+      var newQuestionLabel = document.createElement("h4");
+      newQuestionLabel.textContent = element.questionText;
+      var newQuestionAnswerSection = document.createElement("textarea");
+      newModule.appendChild(newQuestionLabel);
+      newModule.appendChild(newQuestionAnswerSection);
+    }
+  });
 }
-export default studentProfilePage;

@@ -16,6 +16,33 @@ function ModuleNav() {
         <li className="nav-item">
           <Link to="/learn/module3">What is anxiety?</Link>
         </li>
+        <li className="nav-item">
+          <Link
+            to={{
+              pathname: "/uniqueModule",
+              state: {
+                name: "Test Unique Module",
+                array: [
+                  {
+                    questionType: "PT",
+                    text: "First sample test question about mental health"
+                  },
+                  {
+                    questionType: "PT",
+                    text: "Second sample test question about mental health"
+                  },
+                  {
+                    questionType: "PT",
+                    text: "Third sample test question about mental health"
+                  }
+                ],
+                teacher: "testTeacher1"
+              }
+            }}
+          >
+            Test Unique Module
+          </Link>
+        </li>
       </ul>
     </div>
   );
