@@ -30,7 +30,7 @@ class UniqueModulePage extends React.Component {
                       onChange={e => {
                         var testArray = this.state.answerArray;
                         testArray[{ i }] = e.target.value;
-                        console.log(e.target.value);
+                        console.log(this.state.answerArray[i]);
                         this.setState({ answerArray: testArray });
                       }}
                     ></textarea>

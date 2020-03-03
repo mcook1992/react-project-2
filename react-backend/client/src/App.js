@@ -14,6 +14,7 @@ import studentProfilePage from "./pages/studentProfile";
 import landingPage from "./pages/landingPage";
 import AssignmentPage from "./pages/AssignmentPage";
 import UniqueModulePage from "./pages/uniqueModule";
+import makeNewModule from "./pages/makeANewModule";
 
 class App extends Component {
   state = {
@@ -61,6 +62,7 @@ class App extends Component {
             />
             <Route path="/studentProfile/" component={studentProfilePage} />
             <Route path="/uniqueModule/" component={UniqueModulePage} />
+            <Route path="/makeNewModule/" component={makeNewModule} />
 
             {/* <Route exact path="/blog" component={Blog} />
             <Route path="/contact" component={Contact} /> */}

@@ -6,6 +6,7 @@ var passport = require("../configure/passportConfig");
 var cookieParser = require("cookie-parser");
 var Group = require("../models/classes");
 var path = require("path");
+var teacherMadeModule = require("../models/teacherMadeUnits");
 /* GET home page. */
 
 //trying to render react static pages
@@ -294,6 +295,8 @@ router.get("/addClasses", function(req, res, next) {
   }
 });
 
+//creating a new class!
+
 router.post("/addClasses", function(req, res, next) {
   console.log("Register the add classes post request");
   if (req.session.passport) {
@@ -336,6 +339,8 @@ router.post("/addClasses", function(req, res, next) {
   }
 });
 
+//student joining a class
+
 router.post("/joinClasses", function(req, res, next) {
   console.log("registering the join classes request");
   if (req.session.passport) {
@@ -358,6 +363,8 @@ router.post("/joinClasses", function(req, res, next) {
     });
   }
 });
+
+//showing a classpage to a teacher
 
 router.get("/displayClass/:classname", function(req, res, next) {
   console.log("registering display things");
@@ -400,6 +407,7 @@ router.get("/displayClass/:classname", function(req, res, next) {
   });
 });
 
+//getting a student profile
 router.get("/studentProfiles/:name", function(req, res, next) {
   //add security
   console.log(
@@ -423,6 +431,7 @@ router.get("/studentProfiles/:name", function(req, res, next) {
   );
 });
 
+//creating an assignment
 router.post("/createAssignment", function(req, res, next) {
   console.log("registering the create assignments request");
 
@@ -473,6 +482,41 @@ router.post("/createAssignment", function(req, res, next) {
       usersUpdated: ["complete", "complete"]
     });
   //tktktk insert extra
+});
+
+router.get("/isAuthenticated", function(req, res, next) {
+  console.log("registering the authentication check");
+  if (req.session.passport && req.user) {
+    console.log(req.session.passport + req.user);
+    res.json({
+      isAuthenticated: true,
+      username: req.session.passport.user.username,
+      accountType: req.user.userna
+    });
+  }
+});
+
+router.post("/makeNewModule", function(req, res, next) {
+  console.log("making a new module");
+  console.log(req.body.moduleName);
+  console.log(req.body.questionArray);
+  var newTeacherMadeModule = new teacherMadeModule({
+    name: req.body.moduleName + "-" + req.session.passport.user.username,
+    displayName: req.body.moduleName,
+    teacherNames: [req.session.passport.user.username],
+    questionArray: req.body.questionArray
+  });
+  newTeacherMadeModule.save(function(err) {
+    console.log("We have a new module and are saving!");
+    if (!err) {
+      console.log("New teachermade module created successfully");
+      res.json({
+        success: "success!"
+      });
+
+      //adding a teacher to the class
+    }
+  });
 });
 
 module.exports = router;
