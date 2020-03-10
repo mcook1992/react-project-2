@@ -11,7 +11,8 @@ var userSchema = new Schema({
   modulesAssigned: [],
   assignmentsGiven: [], //use this to track teacher assignments
   modulesCompleted: [],
-  classNames: []
+  classNames: [],
+  modulesCreated: []
 });
 
 // Compile model from schema

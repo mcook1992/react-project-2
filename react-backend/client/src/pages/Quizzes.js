@@ -10,6 +10,7 @@ class Quizzes extends React.Component {
     this.state = {
       isComplete: false,
       username: "",
+      uniqueModules: ["test module blah"],
       // currentText: "",
       questionArray: [
         { label: "How stressed do you currently feel?", value: "", key: 1 },
@@ -33,17 +34,32 @@ class Quizzes extends React.Component {
   }
 
   componentDidMount() {
+    // var username = "";
     fetch("/isAuthenticated", {
       method: "GET",
       headers: { "Content-Type": "application/json" }
     })
       .then(res => res.json())
       .then(data => {
-        console.log(data);
+        console.log("The data are " + data.username + " " + data.uniqueModules);
+        var newUniqueModuleArray = JSON.parse(data.uniqueModules);
         this.setState({
-          username: data.username
+          username: data.username,
+          uniqueModules: newUniqueModuleArray
         });
       });
+    // fetch("/teacherUniqueModules", {
+    //   method: "GET",
+    //   headers: { "Content-Type": "application/json" }
+    // })
+    //   .then(response => response.json())
+    //   .then(userModuleInfo => {
+    //     console.log(userModuleInfo.uniqueModules);
+    //     this.setState({
+    //       // username: username,
+    //       uniqueModules: userModuleInfo.uniqueModules
+    //     });
+    //   });
   }
 
   change(event, id) {
@@ -85,7 +101,7 @@ class Quizzes extends React.Component {
 
           <Route path="/" component={SignOutButton} />
           {/* <SignOutButton className="btn btn-link pull-right" /> */}
-          <ModuleNav />
+          <ModuleNav uniqueModules={this.state.uniqueModules} />
 
           <br />
           <br />
@@ -151,7 +167,7 @@ class Quizzes extends React.Component {
       return (
         <div>
           <SignOutButton className="btn btn-link pull-right" />
-          <ModuleNav />
+          <ModuleNav uniqueModules={this.state.uniqueModules} />
           <br />
           <br />
           <br />

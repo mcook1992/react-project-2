@@ -14,17 +14,17 @@ router.get("/", function(req, res, next) {
   res.sendFile(path.join(__dirname, "../client/build/", "index.html"));
 });
 
-router.get("/isAuthenticated", function(req, res, next) {
-  console.log("registering the authentication check");
-  if (req.session.passport && req.user) {
-    console.log(req.session.passport + req.user);
-    res.json({
-      isAuthenticated: true,
-      username: req.session.passport.user.username,
-      accountType: req.user.userna
-    });
-  }
-});
+// router.get("/isAuthenticated", function(req, res, next) {
+//   console.log("registering the authentication check");
+//   if (req.session.passport && req.user) {
+//     console.log(req.session.passport + req.user);
+//     res.json({
+//       isAuthenticated: true,
+//       username: req.session.passport.user.username,
+//       accountType: req.user.userna
+//     });
+//   }
+// });
 
 router.get("/signOut", function(req, res, next) {
   console.log("Logging out");
@@ -487,19 +487,71 @@ router.post("/createAssignment", function(req, res, next) {
 router.get("/isAuthenticated", function(req, res, next) {
   console.log("registering the authentication check");
   if (req.session.passport && req.user) {
-    console.log(req.session.passport + req.user);
-    res.json({
-      isAuthenticated: true,
-      username: req.session.passport.user.username,
-      accountType: req.user.userna
+    console.log(req.user.username);
+    User.findOne({ username: req.session.passport.user.username }, function(
+      err,
+      user
+    ) {
+      if (user) {
+        console.log("We have a user");
+        console.log(user.modulesCreated[0]);
+        var jArray = JSON.stringify(user.modulesCreated);
+        res.json({
+          isAuthenticated: true,
+          username: req.session.passport.user.username,
+          uniqueModules: jArray
+        });
+      }
     });
+    // res.json({
+    //   isAuthenticated: true,
+    //   username: req.session.passport.user.username
+    //   // accountType: req.user.accountType
+    // });
   }
+});
+
+router.get("/teacherUniqueModules", function(req, res, next) {
+  console.log("getting this teacher's unique modules");
+  User.findOne({ username: req.session.passport.user.username }, function(
+    err,
+    user
+  ) {
+    if (user) {
+      console.log(user.modulesCreated[0]);
+      res.json({
+        uniqueModules: ["test module 1", "test module"]
+      });
+    }
+  });
 });
 
 router.post("/makeNewModule", function(req, res, next) {
   console.log("making a new module");
-  console.log(req.body.moduleName);
-  console.log(req.body.questionArray);
+  // console.log(req.body.moduleName);
+  // console.log(req.body.questionArray);
+  console.log(req.session.passport.user.username);
+
+  User.findOne({ username: req.session.passport.user.username }, function(
+    err,
+    user
+  ) {
+    if (user) {
+      var nameOfNewModule =
+        req.body.moduleName + "-" + req.session.passport.user.username;
+      user.modulesCreated.push(nameOfNewModule);
+      user.save(function(error) {
+        if (error) {
+          console.log(error);
+        } else {
+          console.log("success!");
+        }
+      });
+    } else {
+      console.log(err);
+    }
+  });
+
   var newTeacherMadeModule = new teacherMadeModule({
     name: req.body.moduleName + "-" + req.session.passport.user.username,
     displayName: req.body.moduleName,

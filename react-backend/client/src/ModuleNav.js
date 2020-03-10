@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-function ModuleNav() {
+function ModuleNav(props) {
   return (
     <div className="sidebar-header pull-left moduleNav">
       <ul className="list-unstyled components">
@@ -16,7 +16,17 @@ function ModuleNav() {
         <li className="nav-item">
           <Link to="/learn/module3">What is anxiety?</Link>
         </li>
-        <li className="nav-item">
+        <div>
+          <h4>Your unique modules</h4>
+          <div>
+            {props.uniqueModules.map((item, i) => (
+              <li>
+                <Link to="/uniqueModule">{item}</Link>
+              </li>
+            ))}
+          </div>
+        </div>
+        {/* <li className="nav-item">
           <Link
             to={{
               pathname: "/uniqueModule",
@@ -42,6 +52,9 @@ function ModuleNav() {
           >
             Test Unique Module
           </Link>
+        </li> */}
+        <li>
+          <Link></Link>
         </li>
       </ul>
     </div>
