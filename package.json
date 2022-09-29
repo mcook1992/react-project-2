@@ -40,6 +40,6 @@
     "react-router-dom": "^5.0.1",
     "react-select": "^3.0.8",
     "react-transition-group": "^4.3.0",
-    "recharts": "^1.7.1"
+    "recharts": "^2.1.14"
   }
 }
